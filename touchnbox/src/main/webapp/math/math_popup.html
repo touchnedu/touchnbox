@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>문제 미리보기</title>
+
+<link rel="stylesheet" href="../js/mathscribe/jqmath-0.4.3.css">
+<link rel="stylesheet" href="../js/mathscribe/mathstyle.css">
+<style>
+#bgsample {
+  background: url("img/bg_sample01.png");
+  padding-top: 84px;
+  padding-left: 25px;
+ 
+}
+</style>
+</head>
+<body id='bgsample'>
+<!-- DB로부터 받아오는 영역 시작 -->
+
+<!-- 문제 텍스트 -->
+<div id='makeChapterArea'>
+  <div class='text-font'></div><br></div><br>
+<!-- 문제 텍스트 -->
+
+<!-- 밑줄 -->
+<div id='zero-font'><img src='img/question_line_port.png' width='250'></div>
+<!-- 밑줄 -->
+
+<p class='blankArea'></p>
+
+<!-- 문제 영역 -->
+<div id='makeQuestionArea'></div>
+<!-- 문제 영역 -->
+
+<!-- DB로부터 받아오는 영역 종료 -->
+
+<script src="../js/mathscribe/jquery-1.4.3.min.js"></script>
+<script src="../js/mathscribe/jqmath-etc-0.4.3.js"></script>
+<script src="../js/mathscribe/solve.js"></script>
+<script src="../js/mathscribe/input_math.js"></script>
+<script>
+M.MathPlayer = false;
+M.trustHtml = true;
+childFunction();
+//solve(3,3);
+</script>
+
+</body>
+</html>

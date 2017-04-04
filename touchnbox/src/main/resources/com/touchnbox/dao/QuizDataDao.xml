@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.touchnbox.dao.QuizDataDao">
+  <resultMap type="QuizData"    id="QuizDataMap">
+    <id     column="qno"      property="no" />
+    <result column="country"  property="countryCode" />
+    <result column="cre_dt"   property="createDate" />
+  </resultMap>
+  
+  <!-- 문제 데이터 입력 -->
+  <insert id="insert" parameterType="QuizData">
+    insert into QUIZDATA(country, typeCode, chapCode, school, grade, term, 
+      bigChapter, midChapter, smallChapter, difficulty, boxNumber, 
+      quizNumber01, quizNumber02, mno, title, content, cre_dt) 
+    values(#{countryCode}, #{typeCode}, #{chapCode}, #{school}, #{grade}, #{term}, 
+      #{bigChapter}, #{midChapter}, #{smallChapter}, #{difficulty}, #{boxNumber}, 
+      #{quizNumber01}, #{quizNumber02}, #{mno}, #{title}, #{content}, now())
+  </insert>
+
+  <!-- 문제 수정 -->
+  <update id="update" parameterType="QuizData">
+    update QUIZDATA set 
+	    title=#{title}, 
+	    content=#{content},
+	    school=#{school},
+	    grade=#{grade},
+	    term=#{term},
+	    bigChapter=#{bigChapter},
+	    midChapter=#{midChapter},
+	    smallChapter=#{smallChapter},
+	    difficulty=#{difficulty},
+	    boxNumber=#{boxNumber},
+	    quizNumber01=#{quizNumber01},
+	    quizNumber02=#{quizNumber02},
+	    typeCode=#{typeCode},
+	    chapCode=#{chapCode}
+    where qno=#{no}
+  </update>
+  
+  <!-- 문제 데이터 로드 -->
+  <select id="list" parameterType="map" resultMap="QuizDataMap">
+    select qno, title, date_format(cre_dt, '%Y-%m-%d')as createDate    
+    from QUIZDATA 
+    where mno=#{no}
+    order by qno desc
+    limit #{startIndex}, #{pageSize}  
+  </select>
+  
+  <select id="listAll" parameterType="map" resultMap="QuizDataMap">
+    select qno, title, date_format(cre_dt, '%Y-%m-%d')as createDate    
+    from QUIZDATA 
+    order by qno desc
+    limit #{startIndex}, #{pageSize}  
+  </select>
+  <!-- date_format(cre_dt, '%Y-%m-%d %H:%i:%s')as createDate -->
+  
+  <!-- 챕터별 문제 데이터 로드 -->
+  <select id="listByChapter" parameterType="map" resultMap="QuizDataMap">
+    select qno, title, date_format(cre_dt, '%Y-%m-%d')as createDate, chapCode 
+    from QUIZDATA 
+    where mno=#{mno} and chapCode=#{chapCode} 
+    order by qno desc
+  </select>
+  
+  <select id="listByChapterAll" parameterType="int" resultMap="QuizDataMap">
+    select qno, title, date_format(cre_dt, '%Y-%m-%d')as createDate, chapCode 
+    from QUIZDATA 
+    where chapCode=#{value} 
+    order by qno desc
+  </select>
+  
+  <!-- detail -->
+  <select id="detail" parameterType="int" resultMap="QuizDataMap">
+    select qno, title, content, date_format(cre_dt, '%Y-%m-%d')as createDate, 
+           school, grade, term, bigChapter, midChapter, smallChapter, difficulty, 
+           boxNumber, quizNumber01, quizNumber02    
+    from QUIZDATA
+    where qno=#{value}  
+  </select>
+  
+  <!-- delete -->
+  <delete id="delete" parameterType="int">
+    delete from QUIZDATA where qno=#{value}
+  </delete>
+  
+  <!-- 코드 유효성 검사 -->
+  <select id="exist" parameterType="long" resultType="int">
+    select count(*)
+    from QUIZDATA
+    where typeCode=#{value}
+  </select>
+  
+  <!-- 작성한 문제 로드 by 전체타입코드 -->
+  <select id="load" parameterType="long" resultMap="QuizDataMap">
+    select qno, title, content     
+    from QUIZDATA 
+    where typeCode=#{value}
+  </select>
+  
+  <!-- 전체 문제 수 카운트 -->
+  <select id="countAll" parameterType="int" resultType="int">
+    select count(*) 
+    from QUIZDATA 
+    where mno=#{value}
+  </select>
+  
+  <select id="totalCount" parameterType="int" resultType="int">
+    select count(*) 
+    from QUIZDATA 
+  </select>
+  
+</mapper>

@@ -1,0 +1,219 @@
+body {
+	margin: 0 auto;
+}
+.copy-text, .reset-text, .bookmark-text {
+	font-family: -webkit-body;
+  padding: 0px 8px 3px 9px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+.copy-text {
+	padding: 0px 10px 3px 10px;
+}
+#pixer-mover {
+  float:left;
+  position: relative;
+  top: -340px;
+  left: -100px;
+  text-align: center;
+}
+#pixer-mover button {
+  padding: 3px 5px 3px 5px;
+  margin: 2px;
+}
+#pixer-mover > .center-btn > button {
+	padding: 0 5px 3px 5px;
+}
+#answer-ring {
+  float: left;
+  position: absolute;
+  display: none;
+}
+#answer-ring > img {
+  width: 100px;
+}
+#image-src {
+	width: 120px;
+}
+#validate-code {
+	font-size: 0.7em;
+	vertical-align: center;
+}
+#update-content {
+	display: none;
+}
+#area-header, #content-quiz {
+	display: none;
+}
+#preview-phone {
+	background: url("../images/bg_sample01.png");
+	background-repeat: no-repeat;
+	max-width: 360px;
+	width: 360px;
+	height: 640px;
+}
+#preview-phone > div:first-child {
+	border: 1px solid #E0F9F7;
+  width: 320px;
+  height: 510px;
+  margin-top: 75px;
+  margin-left: 22px;
+}
+#loaded-content {
+	display: none;
+}
+#preview-phone > div > img {
+	max-width: 320px;
+}
+#content-quiz {
+	min-width: 760px;
+	padding-top: 50px;
+}
+#content-quiz > table {
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+#content-quiz > table > tbody > tr > td {
+	border: 1px solid #ccc;
+}
+#content-quiz > table > tbody > tr > td:first-child {
+	padding: 0;
+	vertical-align: top;
+}
+#content-quiz > table > tbody > tr > td:last-child {
+  width: 550px;
+  padding: 0;
+}
+#q-number, #box-number, #box-type {
+	border-bottom: 1px solid #ccc;
+	padding: 8px 0 8px 5px;
+}
+#q-number {
+	padding: 6px 0 6px 5px;
+}
+#q-number > span, #box-number > span {
+	margin-right: 10px;
+}
+#q-number > input {
+	padding: 3px;
+}
+div[class^="text-boxnumber"] > div  {
+	display: inline-block;
+	padding: 5px;
+}
+div[class^="text-boxnumber"] {
+	padding: 6px 5px 1px 0;
+	border-bottom: 1px solid #ccc;
+	height: 95px;
+}
+/* 비활성화 */
+div[class^="text-boxnumber"]:not(.text-boxnumber-01) {
+	color: #eee;
+}
+div[class^="text-boxnumber"]:not(.text-boxnumber-01) > * {
+	display: none;
+}
+/* 비활성화 */
+.box-input {
+	width: 100%;
+	border-top: 1px dotted #ddd;
+}
+.type-inline {
+	display: inline-block;
+}
+div[class^="box-type"] {
+	border: 1px solid #666;
+	vertical-align: middle;
+	border-radius: 2px;
+	cursor: pointer;
+}
+.box-type-gen {
+	cursor: grab !important;
+	cursor: -webkit-grab !important;
+	display: inline-block;
+}
+#box-type {
+  text-align: center;
+  font-weight: bold;
+  background-color: #E0F9F7;
+}
+.box-type01 {
+  width: 6px;
+  height: 6px;
+}
+.box-type02 {
+	width: 12px;
+	height: 12px;
+}
+.box-type03 {
+	width: 20px;
+	height: 12px;
+}
+.box-type04 {
+	width: 30px;
+	height: 12px;
+}
+.box-type05 {
+	width: 12px;
+	height: 42px;
+}
+.box-type06 {
+	width: 24px;
+	height: 42px;
+}
+.box-type07 {
+	width: 34px;
+	height: 42px;
+}
+.box-type-gen {
+	width: 10px;
+	height: 10px;
+}
+.box-input {
+	padding-left: 0px !important;
+	margin-top: 5px;
+}
+.box-input > input:not(.input-answer) {
+	padding: 3px;
+	width: 30px;
+}
+.box-input > button, #save-content, #load-content, #load-img, #reset-content,
+#update-content, #load-wcontent {
+  cursor: pointer;
+  background-color: #09A798;
+  border: none;
+  color: #fff;
+  padding: 4px 6px 4px 6px;
+  border-radius: 3px;
+  outline: 0;
+}
+#load-img {
+	font-weight: bold;
+  /* margin-top: -5px; */
+  vertical-align: bottom;
+  padding-top: 6px !important;
+}
+#content-controll > button {
+	font-weight: bold;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+.box-input > button:HOVER, #save-content:HOVER, #load-content:HOVER,
+#reset-content:HOVER { 
+	background-color: #3EB7AB;
+}
+.gen-box-w {
+	margin-left: 3px;
+}
+#content-controll {
+  border-bottom: 0;
+  padding: 8px 5px 5px 5px;
+  text-align: center;
+  height: 30px;
+}
+.input-answer {
+  width: 180px;
+  padding: 3px;
+}

@@ -1,0 +1,44 @@
+.poppy {
+  position: absolute;
+  z-index: 999;
+  background-color: #fff;
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 8px 2px rgba(0,0,0,0.2);
+  padding: 5px 20px;
+  border-radius: 3px;
+  width: 30%;
+  min-width: 300px;
+  padding: 15px;
+  text-align: center;
+}
+
+.poppy > div {
+  display: inline-block;
+}
+
+.poppy > input {
+  vertical-align: middle;
+}
+
+.close-btn {
+  height: 24px;
+  width: 24px;
+  margin: -10px -10px;
+  float: right;
+  background: url("../images/close-button01.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  content: "";
+  cursor: pointer;
+}
+
+#poppyScreen {
+  background-color: #000;
+  position: absolute;
+  z-index: 998;
+  height: 100%;
+  width: 100%;
+  opacity: 0.4;
+  display: none;
+}
+

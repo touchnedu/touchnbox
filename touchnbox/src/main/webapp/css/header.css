@@ -1,0 +1,38 @@
+#current-id {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #444;
+}
+#load-header-area {
+	z-index: 10000;
+  text-align: center;
+  height: 31px;
+  border-bottom: 1px solid #CCC;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding-top: 6px;
+  min-width: 600px; 
+  color: #666;
+  background-color: #fff;
+}
+.logout-button {
+	display: inline-block;
+  cursor: pointer;
+  background-color: #09A798;
+  border: none;
+  color: #fff;
+  padding: 3px 8px 4px 8px;
+  border-radius: 3px;
+  outline: 0;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.logout-button:hover {
+  text-decoration: none;
+}
+.logout-button:active {
+  position: relative;
+  top: 1px;
+}

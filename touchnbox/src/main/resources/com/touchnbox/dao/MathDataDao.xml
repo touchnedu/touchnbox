@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.touchnbox.dao.MathDataDao">
+  <resultMap type="MathData"    id="MathDataMap">
+    <id     column="qno"      property="no" />
+    <result column="cre_dt"   property="createDate" />
+  </resultMap>
+  
+  <!-- 문제 데이터 입력 -->
+  <insert id="insert" parameterType="MathData">
+    insert into 
+    MATHDATA(mno, imgCode, mathCode, chapCode, school, grade, term, 
+             bigChapter, midChapter, smallChapter, boxNumber, 
+             quizNumber01, quizNumber02, content, cre_dt) 
+    values(#{mno}, #{imgCode}, #{mathCode}, #{chapCode}, #{school}, #{grade},  
+           #{term}, #{bigChapter}, #{midChapter}, #{smallChapter}, #{boxNumber}, 
+           #{quizNumber01}, #{quizNumber02}, #{content}, now())                    
+  </insert>
+  
+  <!-- 작성한 문제 로드 by 전체타입코드 -->
+  <select id="load" parameterType="string" resultType="string">
+    select content from MATHDATA where mathCode=#{value}
+  </select>
+  
+  <!-- 문제 수정 -->
+  <update id="update" parameterType="MathData">
+    update MATHDATA set 
+      boxNumber=#{boxNumber}, 
+      content=#{content} 
+    where qno=#{no}
+  </update>
+  
+  <!-- 문제 데이터 로드 -->
+  <select id="list" parameterType="map" resultMap="MathDataMap">
+    select 
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mno=#{no} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize}  
+  </select>
+  
+  <select id="listAll" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize} 
+  </select>
+  <!-- date_format(cre_dt, '%Y-%m-%d %H:%i:%s')as createDate -->
+  
+  <!-- 카테고리별 문제 데이터 로드 -->
+  <select id="listByChapter" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mno=#{mno} and chapCode=#{chapCode} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize} 
+  </select>
+  
+  <select id="listByChapterAll" parameterType="int" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where chapCode=#{chapCode} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize}
+  </select>
+  
+  <select id="listByQuizNum" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mno=#{mno} and mathCode=#{mathCode} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize} 
+  </select>
+  
+  <select id="listByQuizNumAll" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mathCode=#{mathCode} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize}
+  </select>
+  
+  <select id="listByBoxNum" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mno=#{mno} and boxNumber=#{boxNumber} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize} 
+  </select>
+  
+  <select id="listByBoxNumAll" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where boxNumber=#{boxNumber} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize}
+  </select>
+  <!--  -->
+  
+  <!-- detail -->
+  <select id="detail" parameterType="int" resultMap="MathDataMap">
+    select qno, imgCode, boxNumber, content
+    from MATHDATA
+    where qno=#{value}
+  </select>
+  
+  <!-- delete -->
+  <delete id="delete" parameterType="int">
+    delete from MATHDATA where qno=#{value}
+  </delete>
+  
+  <!-- 코드 유효성 검사 -->
+ <!--  <select id="exist" parameterType="long" resultType="int">
+    select count(*)
+    from MATHDATA
+    where typeCode=#{value}
+  </select> -->
+  
+  <!-- 전체 문제 수 카운트 -->
+  <select id="countAll" parameterType="int" resultType="int">
+    select count(*) from MATHDATA where mno=#{value}
+  </select>
+  
+  <select id="totalCount" parameterType="int" resultType="int">
+    select count(*) from MATHDATA 
+  </select>
+  
+  <select id="countByChapter" parameterType="map" resultType="int">
+    select count(*) from MATHDATA where chapCode=#{chapCode} and mno=#{mno}
+  </select>
+  
+  <select id="countAllByChapter" parameterType="int" resultType="int">
+    select count(*) from MATHDATA where chapCode=#{value}
+  </select>
+  
+  <select id="countByQuizNum" parameterType="map" resultType="int">
+    select count(*) from MATHDATA where mathCode=#{chapCode} and mno=#{mno}
+  </select>
+  
+  <select id="countAllByQuizNum" parameterType="string" resultType="int">
+    select count(*) from MATHDATA where mathCode=#{value}
+  </select>
+  
+  <select id="countByBoxNum" parameterType="map" resultType="int">
+    select count(*) from MATHDATA where boxNumber=#{chapCode} and mno=#{mno}
+  </select>
+  
+  <select id="countAllByBoxNum" parameterType="int" resultType="int">
+    select count(*) from MATHDATA where boxNumber=#{value}
+  </select>
+  
+  <!-- 문제 유효성 검사 -->
+  <select id="checkQuizNumber" parameterType="string" resultType="int">
+    select count(*) from MATHDATA where mathCode=#{value}
+  </select>
+  
+  <!-- 해당 챕터 문제 개수 파악하기 -->
+  <select id="getQuizCount" parameterType="string" resultType="int">
+    select count(*) from MATHDATA where chapCode=#{value}
+  </select>
+  
+</mapper>

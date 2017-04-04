@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Math Formula</title>
+
+<link rel="stylesheet" href="../js/mathscribe/jqmath-0.4.3.css">
+<link rel="stylesheet" href="../js/mathscribe/mathstyle.css">
+<style>
+#underline-01, #underline-02 {
+  width: 70px;
+  height: 1px;
+  border-bottom: 1px solid #000;
+}
+</style>
+</head>
+<body>
+
+<div id='questionTextArea'>
+  <div class='text-font'><img src='img/icon_pencel.png' width='16'>&nbsp;
+    <div id='quiz-text'>다음 빈 칸에 알맞은 값을 쓰세요.</div></div><br>
+</div>2
+<div id='zero-font'>
+  <img src='img/question_line_port.png' width='250'>
+</div>
+
+<div id='questionArea'>
+
+  <div class='line-height-3'>$\:2\:$</div> 
+     <div id='bracket01'>$)$</div>
+     <div>$\:\: 54 \:\:\: 60 \:\:\:$</div>
+     <br>
+  <div class='line-height-2'>$\:3\:$</div> 
+     <div id='bracket02'>$)$</div>
+     <div>$\:\: 27 \:\:\: 30 \:\:\:$</div>
+     <br>
+  <div class='line-height-2'>$\:\:\:\:\:\:\:\:\:\:\:9\:\:\:\:10$</div><br><br>
+  
+  <div>최대공약수$\:=\:$</div><span id="qPosition01" ans="6">$6\;\;\;\,$</span><br>
+  <div class='line-height-2'>최소공배수$\:=\:$</div><span id="qPosition02" ans="540">$540$</span>
+  
+  
+  
+  <div id='underline-01' attr='yes'></div>
+  <div id='underline-02' attr='yes'></div><br>
+  
+  <div id='answer-ring'><img src='img/answer_ring_01.png'></div>
+  
+</div>
+
+<!-- 기본 네모. 1개의 네모는 반드시 존재한다. 손댈 필요 없음 -->
+<input class='abox activebox' id='solve01' type='text'>
+<!-- 네모의 개수가 2개 이상이면 solve02, solve03 .. 식으로 번호만 올려서 추가 -->
+<input class='abox' id='solve02' type='text'>
+
+<!-- 
+\html'&lt; input type="text" width='1' height='3' &gt;'
+ -->
+
+<script src="../js/mathscribe/jquery-1.4.3.min.js"></script>
+<script src="../js/mathscribe/jqmath-etc-0.4.3.min.js"></script>
+<script src="../js/mathscribe/solve.js"></script>
+<script>
+M.MathPlayer = false;
+M.trustHtml = true;
+</script>
+<script>
+solve(2, 2, 1);
+</script>
+</body>
+</html>

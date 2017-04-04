@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.touchnbox.dao.MemberDao">
+  <resultMap type="Member"    id="MemberMap">
+    <id     column="mno"      property="no" />
+    <result column="cre_dt"   property="createDate" />
+  </resultMap>
+  
+  <!-- 멤버 정보 존재 유무 검사 -->
+  <select id="exist" parameterType="map" resultMap="MemberMap">
+    SELECT id, name, mno 
+    FROM MEMBER 
+    WHERE id=#{id} and password=#{password}
+  </select>
+  
+  <select id="totalMemCount" resultType="int">
+    SELECT count(*) FROM MEMBER
+  </select>
+  
+  <select id="totalCount" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE DATE(cre_dt)=#{value}
+  </select>
+  
+  <!-- 네이버로 가입 학생&남자 -->
+  <select id="naverStudentMale" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE password="" and job="학생" and sex="M" and DATE(cre_dt)=#{value}  
+  </select>
+  
+  <!-- 네이버로 가입 학생&여자 -->
+  <select id="naverStudentFemale" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE password="" and job="학생" and sex="F" and DATE(cre_dt)=#{value}  
+  </select>
+  
+  <!-- 네이버로 가입 비학생&남자 -->
+  <select id="naverCommonMale" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE password="" and job not in("학생") and sex="M" and DATE(cre_dt)=#{value}  
+  </select>
+  
+  <!-- 네이버로 가입 비학생&여자 -->
+  <select id="naverCommonFemale" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE password="" and job not in("학생") and sex="F" and DATE(cre_dt)=#{value}  
+  </select>
+  
+  <!-- 직접 가입 학생&남자 -->
+  <select id="directStudentMale" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE password not in("") and job="학생(초, 중, 고)" and sex="M" and DATE(cre_dt)=#{value}  
+  </select>
+  
+  <!-- 직접 가입 학생&여자 -->
+  <select id="directStudentFemale" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE password not in("") and job="학생(초, 중, 고)" and sex="F" and DATE(cre_dt)=#{value}  
+  </select>
+  
+  <!-- 직접 가입 비학생&남자 -->
+  <select id="directCommonMale" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE password not in("") and job not in("학생(초, 중, 고)") and sex="M" and DATE(cre_dt)=#{value}  
+  </select>
+  
+  <!-- 직접 가입 비학생&여자 -->
+  <select id="directCommonFemale" parameterType="string" resultType="int">
+    SELECT count(*)
+    FROM MEMBER
+    WHERE password not in("") and job not in("학생(초, 중, 고)") and sex="F" and DATE(cre_dt)=#{value}  
+  </select>
+  
+  <!-- 전체 탈퇴 회원 수 -->
+  <select id="totalQuitNum" resultType="int">
+    SELECT count(*) FROM QUITMEMBER
+  </select>
+
+  <!-- 조회일 전체 탈퇴 회원 수 -->
+  <select id="quitMemTodayTotal" parameterType="string" resultType="int">
+    SELECT count(*) FROM QUITMEMBER WHERE DATE(quit_dt)=#{value}
+  </select>
+  
+  <!-- 조회일 가입한 회원 중 탈퇴 회원 수 -->
+  <select id="quitMemToday" parameterType="string" resultType="int">
+    SELECT count(*) FROM QUITMEMBER WHERE DATE(cre_dt)=#{value} and DATE(quit_dt)=#{value}
+  </select>
+  
+</mapper>

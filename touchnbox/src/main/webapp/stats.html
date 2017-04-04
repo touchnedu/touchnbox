@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>터치수학 통계</title>
+<style>
+#content { padding: 20px;}
+#sel-date { margin-bottom: 15px; }
+#sel-date input { padding: 3px 3px 3px 5px; width: 120px; font-size: 0.9em; }
+#sel-date button {padding: 2px 7px 2px 7px; vertical-align: bottom; margin-left: -7px; }
+#today-naver { border: 1px solid #ccc; padding: 10px; }
+.cal-num { padding: 10px 10px 10px 0; }
+.cal-num-2 { padding: 10px 10px 0 0; }
+#stats, #stats-quit { padding: 3px 10px 3px 5px; border-left: 5px solid #ccc; font-weight: bold; }
+.member { border-collapse: collapse; font-size: 0.9em; width: 400px; }
+.member th, .member td { padding: 10px; border: 1px solid #ccc; text-align: center; }
+.member th { background-color: #f0f0f0; width: 400px; }
+tbody > tr:first-child > td { width: 200px; }
+tbody > tr:nth-child(2) > td { width: 100px; }
+</style>
+<link rel="stylesheet" href="css/jquery-ui.css">
+</head>
+<body>
+
+<div id='content'>
+  <div id='sel-date'>날짜 선택&nbsp;
+    <input type="text" id='datepicker'>
+    <button id='getDayInfoBtn'>검색</button>
+  </div>
+  <div id='stats'>회원 가입 현황 : <span class='dateInfo'></span></div>
+  <div class='cal-num-2'>전체 회원 수 : <span id='total-mem'></span></div>
+  <div class='cal-num'>일별 전체 가입 회원 수 : <span id='today-all'></span></div>
+  
+  <table class='member'>
+    <thead>
+      <tr>
+        <th colspan='4'>일별 네이버 가입 회원 수 (<span id='naver-total'></span>)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan='2'>학생 (<span id='naver-stu'></span>)</td>
+        <td colspan='2'>기타 (<span id='naver-etc'></span>)</td>
+      </tr>
+      <tr>
+        <td>남</td>
+        <td>여</td>
+        <td>남</td>
+        <td>여</td>
+      </tr>
+      <tr>
+        <td id='naversm'></td>
+        <td id='naversf'></td>
+        <td id='navercm'></td>
+        <td id='navercf'></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <table class='member'>
+    <thead>
+      <tr>
+        <th colspan='4'>일별 직접 가입 회원 수 (<span id='direct-total'></span>)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan='2'>학생 (<span id='direct-stu'></span>)</td>
+        <td colspan='2'>기타 (<span id='direct-etc'></span>)</td>
+      </tr>
+      <tr>
+        <td>남</td>
+        <td>여</td>
+        <td>남</td>
+        <td>여</td>
+      </tr>
+      <tr>
+        <td id='directsm'></td>
+        <td id='directsf'></td>
+        <td id='directcm'></td>
+        <td id='directcf'></td>
+      </tr>
+    </tbody>
+  </table><br>
+  
+  <div id='stats-quit'>회원 탈퇴 현황</div>
+  <div class='cal-num-2'>전체 탈퇴 회원 수 : <span id='total-quit-num'></span></div>
+  <div class='cal-num-2'><span class='dateInfo'></span> 탈퇴 회원 수 : <span id='quit-num-total'></span></div>
+  <div class='cal-num-2'><span class='dateInfo'></span> 가입한 회원 중 이날 탈퇴 회원 수 : <span id='quit-num-today'></span></div>
+</div>
+<script src="js/lib/jquery-3.1.1.min.js"></script>
+<script src="js/lib/jquery-ui.min.js"></script>
+<script src="js/app/stats.js"></script>
+</body>
+</html>

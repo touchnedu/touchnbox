@@ -1,0 +1,117 @@
+#load-by-category {
+	width: 100px;
+	padding-left: 3px;
+	height: 16px;
+}
+#span-pageNo {
+	color: #777;
+}
+#find-by-category {
+	margin-right: 1px;
+}
+#view-content-table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  max-width: 480px;
+}
+#view-content-table td, #view-content-table th {
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  padding: 4px 6px 6px 6px;
+  text-align: center;
+}
+#view-content-table th {
+  background-color: #E0FFF9; 
+}
+#view-content-table th:first-child {
+	width: 20px;
+}
+#view-content-table th:nth-child(2) {
+	width: 110px;
+}
+#view-content-table th:nth-child(3) {
+	width: 130px;
+}
+#view-content-table th:last-child {
+	width: 100px;
+	max-width: 100px;
+}
+.data-row > td:last-child {
+  text-align: center;
+}
+.data-row > td:nth-child(2) {
+	max-width: 280px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.data-row > td > a, .data-row > td > a:HOVER, .data-row > td > a:VISITED,
+#first-page a {
+	text-decoration: none;
+	color: #333;
+}
+.data-row:HOVER {
+	background-color: #f8f8f8;
+}
+#first-page {
+	display: inline-block;
+	text-align: left;
+	width: 100px;
+	font-size: 0.9em;
+}
+#load-by-chapter-form {
+	text-align: right;
+	padding: 5px 1px 5px 5px;
+	font-size: 0.9em;
+	display: inline-block;
+	width: 353px;
+}
+#load-by-chapter-form > select {
+	vertical-align: middle;
+}
+#load-by-chapter {
+	width: 100px;
+	padding: 2px 3px 2px 3px;
+}
+#div-del {
+	font-size: 0.9em;
+	padding: 7px 10px 0 2px;
+}
+a, a:HOVER, a:VISITED {
+	text-decoration: none;
+	color: #333;
+}
+#div-del {
+	display: inline-block;
+}
+#div-del > button, #find-by-category {
+  border: none;
+  padding: 2px 6px 3px 5px;
+  background: #09A798;
+  font-size: 0.8em;
+  color: white;
+  overflow: visible;
+  border-radius: 3px;
+  font-weight: bolder;
+  outline-style: none;
+  cursor: pointer;
+}
+#div-del > button {
+	padding-left: 4px;
+}
+#blank-div {
+	width: 355px;
+	display: inline-block;
+}
+#prev-next {
+	display: inline-block;
+	text-align: right;
+  width: 414px;
+}
+#prev-next img {
+	vertical-align: middle;
+	margin-bottom: 3px;
+}
+#h-prevBtn, #h-nextBtn {
+	display: none;
+}

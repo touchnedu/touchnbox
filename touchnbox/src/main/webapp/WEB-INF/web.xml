@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>touchnbox</display-name>
+  <!-- web.xml은 J2EE 웹 어플리케이션의 기본이 되는 설정파일이다. -->
+  
+  <!-- 인코딩 필터 등록 시작. 
+       해당 필터를 적용할 URL 패턴이나 Servlet을 등록한다.
+       스프링에서는 자동으로 인코딩을 해주는 라이브러리가 내장돼 있다. ↓ -->
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter
+    </filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <!-- 인코딩 필터 등록 끝 -->
+  
+  <!-- 비즈니스 로직용의 스프링 설정 파일을 작성한다. application-context.xml
+    * 이 경우 별도의 리스너를 등록해야 한다.
+    ContextLoaderListener 클래스는 ServletContextListener 인터페이스를 구현하고 있는데
+    위 스프링 설정 파일을 로드하면 ServletContext 인스턴스 생성 시(톰캣으로 어플리케이션이 로드될 때)
+    호출된다. 즉, ContextLoaderListener 클래스는 DispatcherServlet 클래스의 로드보다
+    먼저 동작하여 비즈니스 로직을 정의한 설정 파일을 로드한다.
+    
+    따라서 dispatch-servlet.xml이 로드되기 전에 application-context.xml 파일이
+    먼저 로드되어야 한다.
+    
+  -->  
+  
+  <!-- ApplicationContext 빈 설정 파일 세팅 --> 
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/conf/application-context.xml</param-value>
+  </context-param>
+  <!-- ApplicationContext 빈 설정 파일 세팅 -->
+  <!-- 웹 어플리케이션이 시작되는 시점에 ApplicationContext를 로딩하고
+       로딩된 빈 정보는 모든 WebApplicationContext들이 참조할 수 있다. -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- DispatcherServlet 설정 시작 -->
+  <servlet>
+    <servlet-name>dispatch</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/conf/dispatch-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <!-- load-on-startup : 클라이언트가 요청하기 전에 미리 객체가 만들어진다. -->
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatch</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <!--
+    * DispatcherServlet은 클라이언트의 요청을 전달받는 서블릿으로 컨트롤이나 뷰와 같은
+      스프링 MVC의 구성 요소를 이용하여 클라이언트에게 서비스를 제공하게 된다.
+      웹앱의 /WEB-INF/web.xml 파일에 추가하고 위와 같이 서블릿과 매핑 정보를 추가하면
+      DispatcherServlet 설정이 완료된다.
+      
+      servlet-mapping에서 dispatch라는 이름을 정의하면 자동적으로 -servlet.xml이
+      추가되어 컨테이너 상에 로드된 스프링 설정 파일명이 결정되는데, 파일 이름을
+      달리 하고 싶을 경우 <init-param> 태그를 통해 별도로 설정해줄 수 있다.
+      dispatch라는 이름이 DispatcherServlet 클래스로 wrapping되었기 때문에
+      context root 이하 *.do 의 액세스는 DispatcherServlet 클래스가 담당하게 된다. 
+   -->
+   
+  <!-- DispatcherServlet 설정 끝 -->
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

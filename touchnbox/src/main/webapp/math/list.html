@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>작성글 보기</title>
+  <link rel="stylesheet" href="../css/list.css">
+</head>
+<body>
+
+<div>
+	<div id='first-page'>
+	  <span><a href='#'> - 전체 목록</a></span>
+	</div>
+	
+	<div id='load-by-chapter-form'>
+	  <span>챕터별 문제 불러오기</span>
+	  <input type='text' id='load-by-chapter'> 
+	  <button id='find-by-chapter'>검색</button>
+	</div>
+</div>
+
+<table id='view-content-table'>
+  <thead>
+    <tr><th><input id='sel-all' type="checkbox"></th><th>제목</th><th>작성일</th></tr>
+  </thead>
+  <tbody></tbody>
+</table>
+<div>
+  <div id='div-del'><button>삭제</button></div>
+  <div id='blank-div' data-pageNo=''></div>
+  <div id='prev-next'>
+    <img src='img/prevBtn_d.png' id='h-prevBtn'>
+    <a href='#' id='prevPage'><img src='img/prevBtn.png'></a>
+    <img src='img/nextBtn_d.png' id='h-nextBtn'>
+    <a href='#' id='nextPage'><img src='img/nextBtn.png'></a>
+  </div>
+</div>
+<script id="template_list" type="text/x-handlebars-template">
+{{#each data}}
+<tr class="data-row">
+  <td><input type="checkbox" name="del-chkbox" data-no="{{no}}"></td>
+  <td><a class="titleLink" data-no="{{no}}" href="#">{{title}}</a></td>
+  <td>{{createDate}}</td>
+</tr>
+{{/each}}
+</script>
+
+<script src="../js/lib/jquery-1.11.3.min.js" type='text/javascript'></script>
+<script src="../js/lib/handlebars-v4.0.5.js" type='text/javascript'></script>
+<script src="../js/app/list.js"></script>
+<script>
+initList();
+viewList(1, 15);
+</script>
+
+</body>
+</html>

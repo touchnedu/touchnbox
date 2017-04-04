@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="jqMath is a JavaScript module that makes it easy to put formatted mathematical expressions in web pages.">
+  <link rel="stylesheet" href="../js/mathscribe/jqmath-0.4.4.css">
+  <link rel="stylesheet" href="../js/mathscribe/author.css">
+  <link rel="stylesheet" href="../js/mathscribe/extra.css">
+  <link rel="stylesheet" href="../css/input_tool.css">
+  
+<title>수학 문제 생성기</title>
+  
+</head>
+<body id='main-content'>
+<div id='header-area'></div>
+<h1>수학 문제 생성기</h1>
+
+<!-- 입력 테이블 -->
+<!-- 
+  jQuery 체크 여부 $("input:checkbox[id='ans-chk1']").is(":checked")
+ -->
+<table class="center ruled">
+  <thead>
+  <tr>
+	  <th class='codeArea' colspan='4'>작성 코드</th>
+    <th class='rsltArea'>결과</th>
+  </tr>
+  </thead>
+  <tbody id='example'>
+    <!-- 문제 규칙 -->
+    <tr>
+      <td colspan='4'>
+        <input type='text' id='code-type-1' placeholder="학교학년학기" maxlength="3">
+        <input type='text' id='code-type-2' placeholder="대중소 단원" maxlength="4">
+        <input type='text' id='code-type-3' placeholder="난이도" maxlength="1">
+        <input type='text' id='code-type-4' placeholder="문제번호1" maxlength="3">
+        <input type='text' id='code-type-5' placeholder="문제번호2" maxlength="2" value='00' disabled>
+      </td>
+      <td></td>
+    </tr>
+    <!-- 제목 -->
+    <tr>
+      <td colspan='4'>문제 제목 <input type='text' id='title-form'></td>
+      <td>수식이 들어갈 경우 $$ 안에 작성해 주세요. <br>ex) \$3x+2=8\$에서 \$x\$의 값은?</td>
+    </tr>
+    <!-- 문제 타입 -->
+    <tr><td colspan='4'>
+	    <span>네모 개수</span>
+	    <select name="box-number" id='select-box-number'>
+			  <option value="1">1</option>
+			  <option value="2">2</option>
+			  <option value="3">3</option>
+			  <option value="4">4</option>
+			  <option value="5">5</option>
+			  <option value="6">6</option>
+			  <option value="7">7</option>
+			</select>
+			<span>&nbsp; 타입 번호</span>
+      <select name="type-number" id='select-type-number'>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+	    </td><td>※ 타입 번호 <br>&nbsp; - 한 자리 분수(2), 두 자리 분수(3), 그 외(1)
+	  </td></tr>
+	  <!-- 1~7 -->
+    <tr><td><textarea id="mathSrc1"></textarea></td>
+	    <td><input type="checkbox" id="ans-chk1"> 
+      <label for="ans-chk1">답</label>
+      <input type="checkbox" id="next-line1" checked> 
+      <label for="next-line1">줄바꿈</label></td>
+      <td>
+	      <select name="ans-number-1" id='select-ans-number-1' disabled>
+	        <option value="ns" selected>선택</option>
+	        <option value="1">1</option>
+	        <option value="2">2</option>
+	        <option value="3">3</option>
+	        <option value="4">4</option>
+	        <option value="5">5</option>
+	        <option value="6">6</option>
+          <option value="7">7</option>
+	      </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-1' disabled></td>
+	    <td id="mathTgt1" class='convertArea'></td></tr> 
+	    
+    <tr><td><textarea id="mathSrc2"></textarea></td>
+      <td><input type="checkbox" id="ans-chk2"> 
+      <label for="ans-chk2">답</label>
+      <input type="checkbox" id="next-line2" checked> 
+      <label for="next-line2">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-2" id='select-ans-number-2' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-2' disabled></td>
+	    <td id="mathTgt2" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc3"></textarea></td>
+      <td><input type="checkbox" id="ans-chk3"> 
+      <label for="ans-chk3">답</label>
+      <input type="checkbox" id="next-line3" checked> 
+      <label for="next-line3">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-3" id='select-ans-number-3' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-3' disabled></td>
+	    <td id="mathTgt3" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc4"></textarea></td>
+      <td><input type="checkbox" id="ans-chk4"> 
+      <label for="ans-chk4">답</label>
+      <input type="checkbox" id="next-line4" checked> 
+      <label for="next-line4">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-4" id='select-ans-number-4' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-4' disabled></td>
+	    <td id="mathTgt4" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc5"></textarea></td>
+      <td><input type="checkbox" id="ans-chk5"> 
+      <label for="ans-chk5">답</label>
+      <input type="checkbox" id="next-line5" checked> 
+      <label for="next-line5">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-5" id='select-ans-number-5' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-5' disabled></td>
+	    <td id="mathTgt5" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc6"></textarea></td>
+      <td><input type="checkbox" id="ans-chk6"> 
+      <label for="ans-chk6">답</label>
+      <input type="checkbox" id="next-line6" checked> 
+      <label for="next-line6">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-6" id='select-ans-number-6' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-6' disabled></td>
+	    <td id="mathTgt6" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc7"></textarea></td>
+      <td><input type="checkbox" id="ans-chk7"> 
+      <label for="ans-chk7">답</label>
+      <input type="checkbox" id="next-line7" checked> 
+      <label for="next-line7">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-7" id='select-ans-number-7' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-7' disabled></td>
+	    <td id="mathTgt7" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc8"></textarea></td>
+      <td><input type="checkbox" id="ans-chk8"> 
+      <label for="ans-chk8">답</label>
+      <input type="checkbox" id="next-line8" checked> 
+      <label for="next-line8">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-8" id='select-ans-number-8' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-8' disabled></td>
+	    <td id="mathTgt8" class='convertArea'></td></tr>
+	  <!-- 1~8 --> 
+	    
+    <tr><td><textarea id="mathSrc9"></textarea></td>
+      <td><input type="checkbox" id="ans-chk9"> 
+      <label for="ans-chk9">답</label>
+      <input type="checkbox" id="next-line9" checked> 
+      <label for="next-line9">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-9" id='select-ans-number-9' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-9' disabled></td>
+	    <td id="mathTgt9" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc10"></textarea></td>
+      <td><input type="checkbox" id="ans-chk10"> 
+      <label for="ans-chk11">답</label>
+      <input type="checkbox" id="next-line10" checked> 
+      <label for="next-line10">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-10" id='select-ans-number-10' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-10' disabled></td>
+	    <td id="mathTgt10" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc11"></textarea></td>
+      <td><input type="checkbox" id="ans-chk11"> 
+      <label for="ans-chk11">답</label>
+      <input type="checkbox" id="next-line11" checked> 
+      <label for="next-line11">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-11" id='select-ans-number-11' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-11' disabled></td>
+	    <td id="mathTgt11" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc12"></textarea></td>
+      <td><input type="checkbox" id="ans-chk12"> 
+      <label for="ans-chk12">답</label>
+      <input type="checkbox" id="next-line12" checked> 
+      <label for="next-line12">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-12" id='select-ans-number-12' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-12' disabled></td>
+	    <td id="mathTgt12" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc13"></textarea></td>
+      <td><input type="checkbox" id="ans-chk13"> 
+      <label for="ans-chk13">답</label>
+      <input type="checkbox" id="next-line13" checked> 
+      <label for="next-line13">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-13" id='select-ans-number-13' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-13' disabled></td>
+	    <td id="mathTgt13" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc14"></textarea></td>
+      <td><input type="checkbox" id="ans-chk14"> 
+      <label for="ans-chk14">답</label>
+      <input type="checkbox" id="next-line14" checked> 
+      <label for="next-line14">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-14" id='select-ans-number-14' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-14' disabled></td>
+	    <td id="mathTgt14" class='convertArea'></td></tr>
+	    
+    <tr><td><textarea id="mathSrc15"></textarea></td>
+      <td><input type="checkbox" id="ans-chk15"> 
+      <label for="ans-chk15">답</label>
+      <input type="checkbox" id="next-line15" checked> 
+      <label for="next-line15">줄바꿈</label></td>
+      <td>
+        <select name="ans-number-15" id='select-ans-number-15' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-15' disabled></td>
+	    <td id="mathTgt15" class='convertArea'></td></tr>
+	  <!-- 9~15 -->
+	  <!-- 분수 내 네모 -->
+	  <tr><td>
+	    <input type="checkbox" id="etc-chk"> 
+      <label for="etc-chk"></label>식에 답이 포함된 경우(값만 입력)<br>
+	    <textarea id="mathSrc99" disabled></textarea></td>
+	    
+      <td><button type='button' id='gen-optionVal' disabled>생성</button></td>
+      <td>
+        <select name="ans-number-99" id='select-ans-number-99' disabled>
+          <option value="ns" selected>선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </td>
+      <td>정답 <input type='text' id='input-ans-99' disabled></td>
+      <td id="mathTgt99" class='convertArea'></td></tr>
+    <!-- 분수 내 네모 -->  
+	    
+  </tbody>
+</table>
+<div id='copyBtn'>
+  <button id='content-copy'>코드생성</button>&nbsp;
+  <button id='content-reset'>초기화</button>&nbsp;
+</div>
+
+<div id='view-content'>
+  <table>
+    <thead></thead>
+    <tbody>
+      <tr>
+        <td>문제 제목</td>
+        <td><input id='ins-quizText' readonly></td>
+      </tr>
+      <tr>
+        <td>문제 코드</td>
+        <td id='update-td'>
+          <input id='update-code-1' readonly placeholder='학교' maxlength='1'>
+          <input id='update-code-2' readonly placeholder='학년' maxlength='1'>
+          <input id='update-code-3' readonly placeholder='학기' maxlength='1'>
+          &nbsp;-&nbsp;
+          <input id='update-code-4' readonly placeholder='대' maxlength='1'>
+          <input id='update-code-5' readonly placeholder='중' maxlength='1'>
+          <input id='update-code-6' readonly placeholder='소' maxlength='2'>
+          &nbsp;-&nbsp;
+          <input id='update-code-7' readonly placeholder='난이도' maxlength='1'>
+          &nbsp;-&nbsp;
+          <input id='update-code-8' readonly placeholder='네모수' maxlength='1'>
+          &nbsp;-&nbsp;
+          <input id='update-code-9' readonly placeholder='문제1' maxlength='3'>
+          <input id='update-code-10' disabled placeholder='문제2' maxlength='2'>
+        </td>
+      </tr>
+      <tr>
+        <td>문제 내용</td>
+        <td><textarea name='popupContent' id='popupContent' rows='15' cols='100'></textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button class='content-preview' id='save-content'>저장하기</button>
+          <button class='content-preview' id='update-content'>수정하기</button>
+          <button class='content-preview' id='cancel-content'>취소하기</button>
+          <button class='content-preview' id='load-content'>불러오기</button>
+          <button class='content-preview' id='prv-content'>미리보기</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+<!-- 입력 테이블 -->
+
+<br><hr>
+<p>예제 문제 하나를 만들어보겠습니다.</p>
+<p>$1/2 + 2/3 = 5/6$ </p>
+<p>라는 문제가 있고 여기에서 네모(답)가 $2/3$라고 가정하면</p>
+<p>1/2 + 2/3 = 5/6 이렇게 작성하면 됩니다.</p>
+<p>그러나 저희의 경우 네모가 들어가야 하기 때문에 그 부분을 분리해야 합니다.</p>
+<p>1/2 +</p> 
+<p>2/3</p> 
+<p>=</p>
+<p>5/6 </p>
+<p>와 같이 네모가 될 부분을 별도로 분리하고 답 부분 체크를 하면 됩니다.</p>
+<br><hr>
+<p>그러나 $2/3$에서 $2$가 네모가 되어야 한다면(분수 내에 네모가 들어가는 경우) 별도의 코드를 작성해야 합니다.</p>
+<p>$ { 5 - 3 } / 2 $ 의 경우를 예로 들어서 작성해보겠습니다. 이때 코드는,</p>
+<p>{ 5 - 3 } / 2 가 됩니다. (띄어쓰기는 가독성을 위해 임의적으로 한 겁니다)</p>
+<p>여기에서 $3$이 네모여야 한다고 가정하면 </p>
+<p>[분수 내 네모일 경우]를 체크하고 값만 입력하는 칸에는 3을,</p>
+<p>셀렉트 박스에서 네모 번호를 선택하고 정답 입력란에 정답을 입력한 후에</p>
+<p>'생성' 버튼을 누르면 아래와 같은 별도의 코드가 만들어집니다. (값을 3, 네모 번호를 2, 정답을 3로 임의로 입력함.)</p>
+<p>{\html'&amp;lt;span id="qPosition0<span class='special'>2</span>" ans="<span class='special'>3</span>"&amp;gt;<span class='special'>3</span>&amp;lt;/span&amp;gt;'}</p>
+<p>이 전체 코드를 복사해서 3 대신 집어넣으면 됩니다.</p>
+<p>{ 5 - 3 } / 2</p>
+<p>↓↓↓↓↓↓</p>
+<p>{ 5 - {\html'&amp;lt;span id="qPosition02" ans="3"&amp;gt;3&amp;lt;/span&amp;gt;'} } / 2</p>
+<p>이 경우는 값, 네모 번호, 정답에 해당하는 코드를 직접 붙여넣었기 때문에</p>
+<p>별도로 답체크를 하지 않습니다. </p>
+<p>※ 정답은 앱 실행 후 마이스크립트 영역에서 답을 작성 후 뜨는 미니 팝업창의 내용을 적으세요.</p>
+<p>&nbsp;&nbsp; 예를 들어 $11/21$ 의 경우 앱에서 [[11]/[21]]이라는 값이 반환되기 때문에</p>
+<p>&nbsp;&nbsp; 앱과 동기화하기 위해 정답 칸에는 [[11]/[21]] 로 작성해야 합니다.</p>
+<br><hr>
+<p align='center'>아래는 많이 사용되는 수식 표현식의 예입니다.</p>
+
+<!-- 예시 테이블 -->
+<table class="center ruled">
+  <thead>
+    <tr>
+      <th class='codeArea'>작성 코드</th>
+      <th class='rsltArea'>결과</th>
+    </tr>
+  </thead>
+  <tbody>
+		<tr><td>x_1</td><td>$ x_1$</td></tr>
+		<tr><td>A, \\A </td><td>$ A, \A $</td></tr>
+		<tr><td>\cos^2θ + \sin^2θ = 1 </td><td>$\cos^2θ+\sin^2θ=1$</td></tr>
+		<tr><td>1 / 3 + {1 + √5} / 2 </td><td>$ 1 / 3 + {1+√5}/2$</td></tr>
+		<tr><td> \\ov {\\AB} </td><td>$ \ov {\AB}$</td></tr>
+    <tr><td> √^3{a} √^4{b} = √^6{ab} <td>$ √^3{a}√^4{b} = √^6{ab} $
+  </tbody>
+</table>
+<!-- 예시 테이블 -->
+<p>&nbsp;</p>
+<hr>
+<div class='explanation'>
+
+<p>공백문자는 세 가지를 제공하고 있습니다.</p>
+<p><span class="special">\\,</span> : 작은 크기의 공백, 
+   <span class="special">\\:</span> : 중간 크기의 공백, 
+   <span class="special">\\;</span> : 큰 크기의 공백</p>
+   
+</div>
+<hr>
+<canvas id="__gesture_canvas__" width="0" height="0" style="z-index: 100000000; position: fixed; top: 0px; left: 0px; background: transparent !important;"></canvas><span id="__gesture_preview__" style="z-index: 100000001; position: absolute; margin: 0px; border: 1px solid black; white-space: nowrap; display: none; background: rgba(255, 255, 225, 0.85098);"></span>
+
+<!-- <script src="../js/mathscribe/jquery-1.4.3.min.js"></script> -->
+<script src="../js/lib/jquery-1.11.3.min.js"></script>
+<script src="../js/lib/handlebars-v4.0.5.js" type='text/javascript'></script>
+<script src="../js/mathscribe/jqmath-etc-0.4.3.min.js"></script>
+<script src="../js/mathscribe/input_math.js"></script>
+<script src="../js/app/content-manager.js"></script>
+<script>
+M.MathPlayer = false; M.trustHtml = true;
+init();
+content();
+</script>
+
+</body>
+</html>

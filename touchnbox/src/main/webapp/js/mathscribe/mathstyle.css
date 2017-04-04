@@ -1,0 +1,248 @@
+/* 최소공배수/최대공약수 */
+.tableQuiz-1, .tableQuiz-2 {
+  text-align: right;
+  border-collapse: collapse;
+}
+.tableQuiz-1 > tbody > tr > td:nth-child(n + 2) {
+  border-bottom: 1px solid black;
+}
+.tableQuiz-1 > tbody > tr > td:nth-child(2),
+.tableQuiz-2 > tbody > tr > td:nth-child(2) {
+  width: 5px;
+}
+.tableQuiz-1 > tbody > tr > td:nth-child(3), 
+.tableQuiz-1 > tbody > tr > td:nth-child(4),
+.tableQuiz-2 > tbody > tr > td:nth-child(3), 
+.tableQuiz-2 > tbody > tr > td:nth-child(4) {
+  text-align: right;
+  width: 28px;
+  padding-right: 8px;
+}
+.tableQuiz-1 > tbody > tr > td:first-child,
+.tableQuiz-2 > tbody > tr > td:first-child {
+  text-align: center;
+  width: 24px;
+  padding-right: 5px;
+}
+.tableQuiz-1 > tbody > tr > td:nth-child(2) {
+  border-left: 1px solid black;
+}
+/* 최소공배수/최대공약수 */
+#makeQuestionArea > div {
+	/* background: #f0f0f0; */
+	font-size: 19px;
+}
+#makeQuestionArea {
+	font-size: 0;
+}
+
+.blankArea {
+	margin: 0 !important;
+	height: 6px;
+}
+.blankArea-2 {
+	margin: 0 !important;
+	height: 10px;
+}
+.blankArea-3 {
+	margin: 0 !important;
+	height: 16px;
+}
+.text-font {
+  font-size: 0.8em;
+  color: #696564;
+}
+#questionTextArea {
+}
+#questionTextArea > div {
+  vertical-align: middle;
+  line-height: 1.2em;
+}
+#questionTextArea > div > img {
+  padding-bottom: 3px;
+  vertical-align: middle;
+} 
+#questionArea > div > span, #makeQuestionArea > div > span {
+  /* font-size: 0.8em; */
+  margin-bottom: 10px;
+}
+#questionArea > div > img {
+  margin-top: 10px;
+}
+#zero-font {
+  font-size: 0;
+  display: block;
+}
+#images {
+  padding: 2% 1% 3% 10%;
+  margin: 0 auto;
+}
+#images > img {
+  width : 220px;
+}
+body {
+  padding-left: 5px;
+  padding-top: 3px;
+  margin: 0;
+  /* font-family: 'misaeng' !important; */
+  font-size: 1.20em;
+  /* background-color: #f0f0f0; */
+}
+div {
+  display: inline-block;
+}
+input {
+  float: left;
+  position: absolute;
+  border: 1px solid #90e6de;
+  background-color: #fff;
+}
+.activebox {
+  border-radius: 2px;
+  border-color: #0aa;
+  border-width: 1px;
+  box-shadow: 0 0 5px #0aa;
+  animation: blink-animation 1s linear infinite;
+  -webkit-animation: blink-animation 1s linear infinite;
+}
+input[id^="solve"] {
+  left: -200%;
+  width: 0px;
+  display: none;
+  border-radius: 2px;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+#answer-ring {
+  float: left;
+  position: absolute;
+  display: none;
+}
+#answer-ring > img {
+  width: 100px;
+}
+.no-body {
+  font-size: 1em !important;
+}
+div[id^="qPosition"] {
+  font-weight: bold;
+  /* background: #999; */
+  /* padding: 0.1em 0.1em 0.1em 0.15em; */
+}
+#questionArea, #checkButton {
+  text-align: left;
+  /* background-color: #f0f0f0; */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0px;
+}
+#questionArea, #makeQuestionArea {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 13px;
+  /* animation-duration: 3s;
+  animation-name: slidein; */
+}
+.line-height-4 {
+  line-height: 4em;
+}
+.line-height-3 {
+  line-height: 3em;
+}
+.line-height-2 {
+  line-height: 2em;
+}
+.first-child {
+  padding-left: 3px;
+}
+.fm-den-frac {
+}
+.shake {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  -webkit-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  -webkit-transform: translate(0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+/* 애니메이션 */
+/* @keyframes slidein {
+  0% { opacity: 0; }
+  50% {}
+  100% { opacity: 1; }
+} 
+@-webkit-keyframes slidein {
+  0% { -khtml-opacity: 0; }
+  50% {}
+  100% { -khtml-opacity: 1; }
+}  */
+@keyframes blink-animation {
+   0% {}
+  50% {
+    border-color: #fff; 
+    box-shadow: none; 
+    }
+  100% {}
+}
+@-webkit-keyframes blink-animation {
+   0% {}
+  50% {
+    border-color: #fff; 
+    box-shadow: none; 
+    }
+  100% {}
+}
+@keyframes fadeout {
+  from {
+    border: 1px solid #ccc;
+    background-color: #fff;
+  }
+  to {
+    border: none;
+    background-color: transparent;
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    border: 1px solid #ccc;
+    background-color: #fff;
+  }
+  to {
+    border: none;
+    background-color: transparent;
+  }
+}
+@keyframes shake {
+  10%, 90% {
+    transform: translate(-1px, 0);
+  }
+  
+  20%, 80% {
+    transform: translate(2px, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate(-4px, 0);
+  }
+
+  40%, 60% {
+    transform: translate(4px, 0);
+  }
+}
+@-webkit-keyframes shake {
+  10%, 90% {
+    -webkit-transform: translate(-1px, 0);
+  }
+  
+  20%, 80% {
+    -webkit-transform: translate(2px, 0);
+  }
+
+  30%, 50%, 70% {
+    -webkit-transform: translate(-4px, 0);
+  }
+
+  40%, 60% {
+    -webkit-transform: translate(4px, 0);
+  }
+}
+
+

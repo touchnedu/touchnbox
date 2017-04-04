@@ -1,0 +1,134 @@
+.nowrap       { white-space: nowrap }
+
+.inline-block   { display: inline-block }
+
+.left       { float: left; margin-right: 8px }
+.right        { float: right; margin-left: 8px }
+.clear        { clear: both }
+
+.center-text    { text-align: center }
+.right-text     { text-align: right }
+.top-align      { vertical-align: top }
+.middle       { vertical-align: middle }
+.baseline     { vertical-align: baseline }
+.center-block, table.center
+          { margin-left: auto; margin-right: auto }
+
+.rotate-left    { -ms-transform-origin: 0 0; -moz-transform-origin: 0 0;
+            -webkit-transform-origin: 0 0; transform-origin: 0 0;
+            -ms-transform: rotate(-90deg); -moz-transform: rotate(-90deg);
+            -webkit-transform: rotate(-90deg); transform: rotate(-90deg) }
+
+blockquote, figure, p, pre, .p-margins
+          { margin-top: 1em; margin-bottom: 1em } /* from HTML5 defaults */
+.p-top        { margin-top: 1em }
+.p-bottom     { margin-bottom: 1em }
+
+table.ruled     { border-collapse: collapse; text-align: center }
+tbody > tr > td:nth-child(2) {
+	text-align: left;
+	padding: 10px !important;
+}
+.ruled > thead > tr > th, .ruled > tbody > tr > td
+          { border: solid thin; padding: 0.2em 0.3em; min-width: 1.5em }
+.ruled > thead, .ruled > tbody, .ruled > tfoot, .ruled > colgroup
+          { border: double }
+
+table.join-align > tbody > tr > td:first-child
+          { text-align: right }
+table.join-align > tbody > tr > td:first-child + td
+          { text-align: left }
+
+.ma-block     { margin-top: 1em; margin-bottom: 1em }
+.ma-block:first-child { margin-top: 0; margin-bottom: 0 }
+
+
+@media only screen and (max-device-width: 1024px) { /*@@ move part to jqmath-0.4.4.css */
+  body, /* math, buggy on ios 8.1 */ fmath, .fm-math, mn, mi, mtext
+            { font-family: Helvetica, sans-serif }
+}
+
+
+/* */
+#mathSrc { font-size: larger; vertical-align: text-bottom }
+#inputIncorAns { display: none; }
+table.prec-form-char  { text-align: center }
+table.prec-form-char td:first-child { text-align: right }
+.codeArea {
+  width: 550px;
+}
+.rsltArea {
+  width: 350px;
+}
+.quizArea {
+  display: inline-block;
+  padding-top: 0.25em;
+  height: 30px;
+  size: 1.2em;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  color: blue;
+}
+table > tbody > tr > td > textarea {
+  width: 350px;
+  resize: none;
+}
+#view-content {
+  text-align: center;
+}
+#view-content > textarea {
+  resize: none;
+}
+.convertArea {
+}
+td {
+  padding: 10px;
+}
+#main-content {
+  padding: 10px 40px 10px 40px;
+}
+.ans-sbox {
+  width: 60px;
+  height: 22px;
+}
+#select-box-number, #select-type-number {
+  width: 40px;
+}
+#example > tr > td {
+  height: 40px;
+  padding-left: 10px;
+}
+#example > tr > td > fmath {
+  text-align: left !important;
+}
+#copyBtn {
+  text-align: center;
+  padding: 15px;
+}
+#copyBtn > button, .content-preview {
+  border: none;
+  padding: 5px 8px 8px 8px;
+  background: #2D87D7;
+  font-size: 1em;
+  color: white;
+  overflow: visible;
+  border-radius: 4px;
+  font-weight: bolder;
+  outline-style: none;
+  cursor: pointer;
+}
+td > input {
+  width: 90px;
+  height: 20px;
+  
+}
+#mathSrc99 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+select {
+  height: 22px;
+}
+#main-content > .center {
+	min-width: 1100px;
+}

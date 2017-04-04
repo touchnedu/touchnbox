@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>작성글 보기</title>
+  <link rel="stylesheet" href="../css/load_list.css">
+  <link rel="stylesheet" href="../css/alertify.css">
+  <link rel="stylesheet" href="../css/square/green.css">
+</head>
+<body>
+
+<div>
+	<div id='first-page'>
+	  <span><a href='#'> - 전체 목록</a></span>
+	</div>
+	
+	<div id='load-by-chapter-form'>
+	  <span>카테고리 검색</span>
+	  <select name="category">
+	    <option value="1" selected>챕터번호
+	    <option value="2">문제번호
+	    <option value="3">네모개수
+	  </select>
+	  <input type='text' id='load-by-category'> 
+	  <button id='find-by-category'>검색</button>
+	</div>
+</div>
+
+<table id='view-content-table'>
+  <thead>
+    <tr><th><input id='sel-all' type="checkbox"></th>
+	    <th>문제 번호</th>
+	    <th>이미지 번호</th>
+	    <th>작성자</th>
+	    <th>등록일</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+<div>
+  <div id='div-del'><button id='delete-content'>삭제</button></div>
+  
+  <div id='prev-next'>
+    <span id='span-pageNo'></span>&nbsp;
+    <img src='../images/prevBtn_d.png' id='h-prevBtn'>
+    <a href='#' id='prevPage'><img src='../images/prevBtn.png'></a>
+    <img src='../images/nextBtn_d.png' id='h-nextBtn'>
+    <a href='#' id='nextPage'><img src='../images/nextBtn.png'></a>
+  </div>
+</div>
+<script id="template_list" type="text/x-handlebars-template">
+{{#each data}}
+<tr class="data-row">
+  <td><input type="checkbox" name="del-chkbox" data-no="{{no}}"></td>
+  <td><a class="titleLink" href="#" data-qno="{{no}}">{{no}}</a></td>
+  <td>{{imgCode}}</a></td>
+  <td>{{name}}</a></td>
+  <td>{{createDate}}</td>
+</tr>
+{{/each}}
+</script>
+
+<script src="../js/lib/jquery-1.11.3.min.js" type='text/javascript'></script>
+<script src="../js/lib/handlebars-v4.0.5.js" type='text/javascript'></script>
+<script src="../js/module/icheck.js" type="text/javascript"></script>
+<script src="../js/module/alertify.js" type="text/javascript"></script>
+<script src="../js/app/load_list.js"></script>
+
+</body>
+</html>

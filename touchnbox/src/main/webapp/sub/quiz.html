@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>터치앤에듀</title>
+	<link rel="stylesheet" href="../css/quiz.css">
+	<link rel="stylesheet" href="../css/alertify.css">
+	<link rel="stylesheet" href="../css/square/green.css">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+</head>
+<body>
+
+<div id='area-header'></div>
+<div id='content-quiz'>
+
+<table>
+  <tbody>
+    <tr>
+      <td id="preview-phone">
+        <div id="preview-quiz"></div><br>
+        <div id="loaded-content"></div>
+        <div id="hidden-content"></div>
+        <div id='pixer-mover'>
+				  <div class='type-inline'><button data-way='top'>▲</button></div><br>
+				  <div class='type-inline center-btn'>
+				    <button data-way='left'>◀</button>&nbsp;&nbsp;&nbsp;&nbsp;
+				    <button data-way='right'>▶</button>
+				  </div><br>
+				  <div class='type-inline'><button data-way='bottom'>▼</button></div>
+				</div>
+      </td>
+      <td id="area-option">
+        <div id="q-number">
+          <span>문제 번호</span>
+          <input type="text" id="image-src">
+          <button id="load-img">GO</button>
+          <button class="copy-text" title="루트를 클립보드에 복사합니다.">√</button>
+          <button class="reset-text" title="문제 번호를 초기화합니다.">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+          <button class="bookmark-text" title="오류 문제로 저장">
+            <i class="fa fa-bookmark" aria-hidden="true"></i>
+          </button>
+          <span id="validate-code"></span>
+        </div>
+        <div id="box-number">
+          <span>네모 개수</span>
+          <input type="radio" value="1" name="boxNumber" checked> 1
+          <input type="radio" value="2" name="boxNumber"> 2
+          <input type="radio" value="3" name="boxNumber"> 3
+          <input type="radio" value="4" name="boxNumber"> 4
+          <input type="radio" value="5" name="boxNumber"> 5
+          <input type="radio" value="6" name="boxNumber"> 6
+          <input type="radio" value="7" name="boxNumber"> 7
+        </div>
+        <div id="box-type"><span>네모 유형</span></div>
+        <div id="area-boxtype">
+          <div class="text-boxnumber-01">&nbsp;BOX01&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="box-type01"></div>
+            <div class="box-type02"></div>
+            <div class="box-type03"></div>
+            <div class="box-type04"></div>
+            <div class="box-type05"></div>
+            <div class="box-type06"></div>
+            <div class="box-type07"></div>
+            <span> →</span>
+            <div class="box-type-gen"></div><br>
+            <div class="box-input">&nbsp;직접 입력
+              <input type="text" class="gen-box-w" maxlength="3"> * 
+              <input type="text" class="gen-box-h" maxlength="2"> 
+              <button class="gen-box-btn">Go</button>
+              &nbsp;&nbsp;&nbsp;정답 
+              <input type="text" class="input-answer">
+            </div>
+          </div>
+          <div class="text-boxnumber-02">&nbsp;BOX02&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="box-type01"></div>
+            <div class="box-type02"></div>
+            <div class="box-type03"></div>
+            <div class="box-type04"></div>
+            <div class="box-type05"></div>
+            <div class="box-type06"></div>
+            <div class="box-type07"></div>
+            <span> →</span>
+            <div class="box-type-gen"></div><br>
+            <div class="box-input">&nbsp;직접 입력
+              <input type="text" class="gen-box-w" maxlength="3"> * 
+              <input type="text" class="gen-box-h" maxlength="2"> 
+              <button class="gen-box-btn">Go</button>
+              &nbsp;&nbsp;&nbsp;정답 
+              <input type="text" class="input-answer">
+            </div>
+          </div>
+          <div class="text-boxnumber-03">&nbsp;BOX03&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="box-type01"></div>
+            <div class="box-type02"></div>
+            <div class="box-type03"></div>
+            <div class="box-type04"></div>
+            <div class="box-type05"></div>
+            <div class="box-type06"></div>
+            <div class="box-type07"></div>
+            <span> →</span> 
+            <div class="box-type-gen"></div><br>
+            <div class="box-input">&nbsp;직접 입력
+              <input type="text" class="gen-box-w" maxlength="3"> * 
+              <input type="text" class="gen-box-h" maxlength="2"> 
+              <button class="gen-box-btn">Go</button>
+              &nbsp;&nbsp;&nbsp;정답 
+              <input type="text" class="input-answer">
+            </div>
+          </div>
+          <div class="text-boxnumber-04">&nbsp;BOX04&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="box-type01"></div>
+            <div class="box-type02"></div>
+            <div class="box-type03"></div>
+            <div class="box-type04"></div>
+            <div class="box-type05"></div>
+            <div class="box-type06"></div>
+            <div class="box-type07"></div>
+            <span> →</span>
+            <div class="box-type-gen"></div><br>
+            <div class="box-input">&nbsp;직접 입력
+              <input type="text" class="gen-box-w" maxlength="3"> * 
+              <input type="text" class="gen-box-h" maxlength="2"> 
+              <button class="gen-box-btn">Go</button>
+              &nbsp;&nbsp;&nbsp;정답 
+              <input type="text" class="input-answer">
+            </div>
+          </div>
+          <div class="text-boxnumber-05">&nbsp;BOX05&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="box-type01"></div>
+            <div class="box-type02"></div>
+            <div class="box-type03"></div>
+            <div class="box-type04"></div>
+            <div class="box-type05"></div>
+            <div class="box-type06"></div>
+            <div class="box-type07"></div>
+            <span> →</span>
+            <div class="box-type-gen"></div><br>
+            <div class="box-input">&nbsp;직접 입력
+              <input type="text" class="gen-box-w" maxlength="3"> * 
+              <input type="text" class="gen-box-h" maxlength="2"> 
+              <button class="gen-box-btn">Go</button>
+              &nbsp;&nbsp;&nbsp;정답 
+              <input type="text" class="input-answer">
+            </div>
+          </div>
+          <div class="text-boxnumber-06">&nbsp;BOX06&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="box-type01"></div>
+            <div class="box-type02"></div>
+            <div class="box-type03"></div>
+            <div class="box-type04"></div>
+            <div class="box-type05"></div>
+            <div class="box-type06"></div>
+            <div class="box-type07"></div>
+            <span> →</span>
+            <div class="box-type-gen"></div><br>
+            <div class="box-input">&nbsp;직접 입력
+              <input type="text" class="gen-box-w" maxlength="3"> * 
+              <input type="text" class="gen-box-h" maxlength="2"> 
+              <button class="gen-box-btn">Go</button>
+              &nbsp;&nbsp;&nbsp;정답 
+              <input type="text" class="input-answer">
+            </div>
+          </div>
+          <div class="text-boxnumber-07">&nbsp;BOX07&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="box-type01"></div>
+            <div class="box-type02"></div>
+            <div class="box-type03"></div>
+            <div class="box-type04"></div>
+            <div class="box-type05"></div>
+            <div class="box-type06"></div>
+            <div class="box-type07"></div>
+            <span> →</span>
+            <div class="box-type-gen"></div><br>
+            <div class="box-input">&nbsp;직접 입력
+              <input type="text" class="gen-box-w" maxlength="3"> * 
+              <input type="text" class="gen-box-h" maxlength="2"> 
+              <button class="gen-box-btn">Go</button>
+              &nbsp;&nbsp;&nbsp;정답 
+              <input type="text" class="input-answer">
+            </div>
+          </div>
+          <div id="content-controll">
+            <button id="reset-content">초기화</button>
+            <button id="save-content">저장하기</button>
+            <button id="update-content">저장하기</button>
+            <button id="load-content">불러오기</button>
+            <button id="load-wcontent">오류문제</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/module/alertify.js"></script>
+<script type="text/javascript" src="../js/module/icheck.js"></script>
+<script type="text/javascript" src="../js/module/clipboard.min.js"></script>
+<script type="text/javascript" src="../js/app/quiz.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+@import url("extra.css");
+
+body				{ background-color: ghostwhite }
+thead, tbody, tfoot, tr, th, td	{ border-color: black /* for IE6-7 */ }
+
+.no-meta			{ color: blue }
+.no-html			{ color: limegreen }
+.special			{ color: red }
+
+h1 { 
+	text-align: center; 
+	background-color: lightsteelblue;
+	margin-top: 35px; 
+	min-width: 1100px;
+}
