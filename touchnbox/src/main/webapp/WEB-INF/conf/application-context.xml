@@ -13,12 +13,14 @@
                   
   * <property> 태그는 bean의 하위 태그로 해당 클래스의 프로퍼티 값을 세팅해준다. 
   * name 속성은 해당 bean의 property와 같은 이름으로 설정해야 한다.
+  * 스케쥴러를 사용하기 위해 xmlns:task, /task, /task/spring-task-3.2.xsd를 삽입(2017.04.24)
 -->
  
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:task="http://www.springframework.org/schema/task"
     xmlns:jee="http://www.springframework.org/schema/jee"
     xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="
@@ -31,7 +33,9 @@
         http://www.springframework.org/schema/jee
         http://www.springframework.org/schema/jee/spring-jee.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task-3.2.xsd">
   
 <context:component-scan base-package="com.touchnbox">
   <context:exclude-filter type="annotation" 
@@ -119,5 +123,8 @@
         </value>
     </property>
 </bean>
+
+<!-- Scheduled 어노테이션을 활성화하려면 다음을 추가해야 한다. -->
+<task:annotation-driven/>
   
 </beans>

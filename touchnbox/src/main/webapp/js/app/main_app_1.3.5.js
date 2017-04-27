@@ -169,7 +169,7 @@ function notReadyContent() {
 }
 
 function readyHintContent(hintName) {
-	var hint_src = "http://touchnbox.cafe24.com/chapter_hint/chapter_hint_";
+	var hint_src = "http://touchnbox.cafe24.com/chapter_hint_new/chapter_hint_";
 	var html_src = ".html";
 	location.href = hint_src + hintName + html_src;
 	
@@ -192,5 +192,5 @@ function readyContent(chapCode, htmlCode) {
 		break;
 	}
 	
-	location.href ="chapter/chapter_" + htmlCode + ".html?schoolCode=" + schoolCode; 
+	location.href ="chapter_1_3_5/chapter_" + htmlCode + ".html?schoolCode=" + schoolCode; 
 }

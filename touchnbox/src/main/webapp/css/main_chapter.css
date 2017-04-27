@@ -414,3 +414,10 @@ article:not(.middle-title):ACTIVE, .large-chapter:ACTIVE {
 .middle-range {
   padding: 12px;
 }
+.free-chapter {
+  position: relative;
+  float: right;
+  width: 50px;
+  display: inline-block;
+  margin-top: -4px;
+}
