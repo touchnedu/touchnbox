@@ -2,8 +2,10 @@ var curId = $(opener.document).find('#current-id').attr('data-id') * 1;
 var curPageNo = 1;
 var defaultPageSize = 15;
 var tempCategoryNumber = "0";
+var currentListNo = 1;
+const NORMAL_LIST = 1, EX_LIST = 2;
+
 (function () {
-	
 	$('#find-by-category').click(function(event) {
 		if($('#load-by-category').val() != '' && $('#load-by-category').val() != null) {
 			switch($('select[name=category] option:selected').val()) {
@@ -23,22 +25,27 @@ var tempCategoryNumber = "0";
 	$('#first-page').click(function(event) {
 		event.preventDefault();
 		tempCategoryNumber = "0";
-		viewList(1, 15);
+		viewList(currentListNo, 1, 15);
 		$('#load-by-category').val('');
 		$('select[name=category]').val('1');
 	});
+	
 	$('#prevPage').click(function(event) {
 		event.preventDefault();
 		getCategoryState("prev");
 	});
+	
 	$('#nextPage').click(function(event) {
 		event.preventDefault();
 		getCategoryState("next");
 	});
 	
-	viewList(1, 15);
-	
 }());
+
+function setCurrentList(no) {
+	currentListNo = no;
+	viewList(currentListNo, 1, 15);
+}
 
 function getCategoryState(target) {
 	if(target == "prev") {
@@ -58,14 +65,18 @@ function getCategoryState(target) {
 		listByBoxNumber($('#load-by-category').val(), curPageNo, defaultPageSize);
 		break;
 	default:
-		viewList(curPageNo, defaultPageSize);
+		viewList(currentListNo, curPageNo, defaultPageSize);
 		break;
 	}
 }
 
-function viewList(pageNo, pageSize) {
-	$.getJSON('/mathdata/list.do', 
-	{
+function viewList(currentListNo, pageNo, pageSize) {
+	var url = "";
+	if(currentListNo == NORMAL_LIST)
+		url = '/mathdata/list.do';
+	else if(currentListNo == EX_LIST)
+		url = '/mathdata/exlist.do';
+	$.getJSON(url, {
 		no: curId,
 		pageNo: pageNo,
 		pageSize: pageSize
@@ -75,7 +86,13 @@ function viewList(pageNo, pageSize) {
 }
 
 function viewDetail(no) {
-	$.getJSON('/mathdata/detail.do?no=' + no, function(result) {
+	var url = "";
+	if(currentListNo == NORMAL_LIST)
+		url = '/mathdata/detail.do?no=';
+	else if(currentListNo == EX_LIST)
+		url = '/mathdata/exdetail.do?no=';
+	
+	$.getJSON(url + no, function(result) {
 		var data = result.data;
 		var imageSource = data.imgCode;
 		var contentSource = data.content;
@@ -89,6 +106,15 @@ function viewDetail(no) {
 			$(opener.document).find('#save-content').css('display', 'none');
 			$(opener.document).find('#image-src').prop('disabled', true);
 			$(opener.document).find('#load-img').css('display', 'none');
+			
+			if(currentListNo == NORMAL_LIST) {
+				$(opener.document).find('#is_ex').prop('checked', false);
+				$(opener.document).find('#is_ex').prop('disabled', false);
+			} else if(currentListNo == EX_LIST) {
+				$(opener.document).find('#is_ex').prop('checked', true);
+				$(opener.document).find('#is_ex').prop('disabled', true);
+			}
+			
 			setTimeout(function() {
 				$(opener.location).attr("href", "javascript:openerController('" + no + "');");
 			}, 25);
@@ -101,7 +127,11 @@ function viewDetail(no) {
 
 function loadImage(source) {
 	var contentImg = new Image();
-	contentImg.src = "../quiz_images/" + source + ".png";
+	var ex = "";
+	if(currentListNo == EX_LIST)
+		ex = "ex_"
+			
+	contentImg.src = "../quiz_images/" + ex + source + ".png";
 	contentImg.onload = function() {
 		console.log(contentImg.src);
 		var imgTag = "<img id='content-src' src='" + contentImg.src + "'>";
@@ -115,9 +145,14 @@ function loadImage(source) {
 
 /** 카테고리별 보기 */
 function listByChapter(cCode, pageNo, pageSize) {
-	console.log(cCode + ", " + pageNo + ", " + pageSize);
+	var url = "";
+	if(currentListNo == NORMAL_LIST)
+		url = '/mathdata/listByChapter.do';
+	else if(currentListNo == EX_LIST)
+		url = '/mathdata/listByExChapter.do';
+	
 	tempCategoryNumber = "1";
-	$.getJSON('/mathdata/listByChapter.do', 
+	$.getJSON(url, 
 	{
 		mno: curId,
 		chapCode: cCode,
@@ -132,8 +167,14 @@ function listByChapter(cCode, pageNo, pageSize) {
 }
 
 function listByQuizNumber(qNumber, pageNo, pageSize) {
+	var url = "";
+	if(currentListNo == NORMAL_LIST)
+		url = '/mathdata/listByQuizNumber.do';
+	else if(currentListNo == EX_LIST)
+		url = '/mathdata/listByExQuizNumber.do';
+	
 	tempCategoryNumber = "2";
-	$.getJSON('/mathdata/listByQuizNumber.do', 
+	$.getJSON(url, 
 	{
 		mno: curId,
 		mathCode: qNumber,
@@ -147,8 +188,14 @@ function listByQuizNumber(qNumber, pageNo, pageSize) {
 }
 
 function listByBoxNumber(bNumber, pageNo, pageSize) {
+	var url = "";
+	if(currentListNo == NORMAL_LIST)
+		url = '/mathdata/listByBoxNumber.do';
+	else if(currentListNo == EX_LIST)
+		url = '/mathdata/listByExBoxNumber.do';
+	
 	tempCategoryNumber = "3";
-	$.getJSON('/mathdata/listByBoxNumber.do', 
+	$.getJSON(url, 
 	{
 		mno: curId,
 		boxNumber: bNumber,
@@ -223,6 +270,12 @@ function handlebarsFunc(result) {
 
 /** 게시물 삭제 */
 function deleteContent() {
+	var url = "";
+	if(currentListNo == NORMAL_LIST)
+		url = '/mathdata/delete.do';
+	else if(currentListNo == EX_LIST)
+		url = '/mathdata/deleteex.do';
+	
 	var chk_length = $('input:checkbox[name="del-chkbox"]').length;
 	var dataArray = new Array();
 	
@@ -234,7 +287,7 @@ function deleteContent() {
 	
 	// 배열 형태로 서버 전송을 위한 설정
 	$.ajaxSettings.traditional = true;
-	$.ajax('/mathdata/delete.do', 
+	$.ajax(url, 
 	{
 		method: 'GET',
 		dataType: 'json',

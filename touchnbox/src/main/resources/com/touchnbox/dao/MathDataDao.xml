@@ -20,14 +20,35 @@
            #{quizNumber01}, #{quizNumber02}, #{content}, now())                    
   </insert>
   
+  <insert id="insertEx" parameterType="MathData">
+    insert into 
+    EXDATA(mno, imgCode, mathCode, chapCode, school, grade, term, 
+           bigChapter, midChapter, smallChapter, boxNumber, 
+           quizNumber01, quizNumber02, content, cre_dt) 
+    values(#{mno}, #{imgCode}, #{mathCode}, #{chapCode}, #{school}, #{grade},  
+           #{term}, #{bigChapter}, #{midChapter}, #{smallChapter}, #{boxNumber}, 
+           #{quizNumber01}, #{quizNumber02}, #{content}, now())                    
+  </insert>
+  
   <!-- 작성한 문제 로드 by 전체타입코드 -->
   <select id="load" parameterType="string" resultType="string">
     select content from MATHDATA where mathCode=#{value}
   </select>
   
+  <select id="exLoad" parameterType="string" resultType="string">
+    select content from EXDATA where mathCode=#{value}
+  </select>
+  
   <!-- 문제 수정 -->
   <update id="update" parameterType="MathData">
     update MATHDATA set 
+      boxNumber=#{boxNumber}, 
+      content=#{content} 
+    where qno=#{no}
+  </update>
+  
+  <update id="updateEx" parameterType="MathData">
+    update EXDATA set 
       boxNumber=#{boxNumber}, 
       content=#{content} 
     where qno=#{no}
@@ -46,6 +67,18 @@
     limit #{startIndex}, #{pageSize}  
   </select>
   
+  <select id="exList" parameterType="map" resultMap="MathDataMap">
+    select 
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from EXDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mno=#{no} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize}  
+  </select>
+  
   <select id="listAll" parameterType="map" resultMap="MathDataMap">
     select 
       qno,
@@ -54,6 +87,18 @@
       date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
       m2.name
     from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize} 
+  </select>
+  
+  <select id="exListAll" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from EXDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
     ORDER BY qno DESC
     limit #{startIndex}, #{pageSize} 
   </select>
@@ -73,6 +118,19 @@
     limit #{startIndex}, #{pageSize} 
   </select>
   
+  <select id="listByExChapter" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from EXDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mno=#{mno} and chapCode=#{chapCode} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize} 
+  </select>
+  
   <select id="listByChapterAll" parameterType="int" resultMap="MathDataMap">
     select 
       qno,
@@ -81,6 +139,19 @@
       date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
       m2.name
     from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where chapCode=#{chapCode} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize}
+  </select>
+  
+  <select id="listByExChapterAll" parameterType="int" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from EXDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
     where chapCode=#{chapCode} 
     ORDER BY qno DESC
     limit #{startIndex}, #{pageSize}
@@ -99,6 +170,19 @@
     limit #{startIndex}, #{pageSize} 
   </select>
   
+  <select id="listByExQuizNum" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from EXDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mno=#{mno} and mathCode=#{mathCode} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize} 
+  </select>
+  
   <select id="listByQuizNumAll" parameterType="map" resultMap="MathDataMap">
     select 
       qno,
@@ -107,6 +191,19 @@
       date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
       m2.name
     from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mathCode=#{mathCode} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize}
+  </select>
+  
+  <select id="listByExQuizNumAll" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from EXDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
     where mathCode=#{mathCode} 
     ORDER BY qno DESC
     limit #{startIndex}, #{pageSize}
@@ -125,6 +222,19 @@
     limit #{startIndex}, #{pageSize} 
   </select>
   
+  <select id="listByExBoxNum" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from EXDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where mno=#{mno} and boxNumber=#{boxNumber} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize} 
+  </select>
+  
   <select id="listByBoxNumAll" parameterType="map" resultMap="MathDataMap">
     select 
       qno,
@@ -133,6 +243,19 @@
       date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
       m2.name
     from MATHDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
+    where boxNumber=#{boxNumber} 
+    ORDER BY qno DESC
+    limit #{startIndex}, #{pageSize}
+  </select>
+  
+  <select id="listByExBoxNumAll" parameterType="map" resultMap="MathDataMap">
+    select 
+      qno,
+      mathCode, 
+      imgCode, 
+      date_format(m1.cre_dt, '%Y-%m-%d')as createDate,
+      m2.name
+    from EXDATA m1 INNER JOIN MEMBER m2 ON m1.mno = m2.mno
     where boxNumber=#{boxNumber} 
     ORDER BY qno DESC
     limit #{startIndex}, #{pageSize}
@@ -146,9 +269,19 @@
     where qno=#{value}
   </select>
   
+  <select id="exDetail" parameterType="int" resultMap="MathDataMap">
+    select qno, imgCode, boxNumber, content
+    from EXDATA
+    where qno=#{value}
+  </select>
+  
   <!-- delete -->
   <delete id="delete" parameterType="int">
     delete from MATHDATA where qno=#{value}
+  </delete>
+  
+  <delete id="deleteEx" parameterType="int">
+    delete from EXDATA where qno=#{value}
   </delete>
   
   <!-- 코드 유효성 검사 -->
@@ -163,31 +296,63 @@
     select count(*) from MATHDATA where mno=#{value}
   </select>
   
+  <select id="countAllEx" parameterType="int" resultType="int">
+    select count(*) from EXDATA where mno=#{value}
+  </select>
+  
   <select id="totalCount" parameterType="int" resultType="int">
     select count(*) from MATHDATA 
+  </select>
+  
+  <select id="totalExCount" parameterType="int" resultType="int">
+    select count(*) from EXDATA 
   </select>
   
   <select id="countByChapter" parameterType="map" resultType="int">
     select count(*) from MATHDATA where chapCode=#{chapCode} and mno=#{mno}
   </select>
   
+  <select id="countByExChapter" parameterType="map" resultType="int">
+    select count(*) from EXDATA where chapCode=#{chapCode} and mno=#{mno}
+  </select>
+  
   <select id="countAllByChapter" parameterType="int" resultType="int">
     select count(*) from MATHDATA where chapCode=#{value}
+  </select>
+  
+  <select id="countAllByExChapter" parameterType="int" resultType="int">
+    select count(*) from EXDATA where chapCode=#{value}
   </select>
   
   <select id="countByQuizNum" parameterType="map" resultType="int">
     select count(*) from MATHDATA where mathCode=#{chapCode} and mno=#{mno}
   </select>
   
+  <select id="countByExQuizNum" parameterType="map" resultType="int">
+    select count(*) from EXDATA where mathCode=#{chapCode} and mno=#{mno}
+  </select>
+  
   <select id="countAllByQuizNum" parameterType="string" resultType="int">
     select count(*) from MATHDATA where mathCode=#{value}
+  </select>
+  
+  <select id="countAllByExQuizNum" parameterType="string" resultType="int">
+    select count(*) from EXDATA where mathCode=#{value}
   </select>
   
   <select id="countByBoxNum" parameterType="map" resultType="int">
     select count(*) from MATHDATA where boxNumber=#{chapCode} and mno=#{mno}
   </select>
   
+  <select id="countByExBoxNum" parameterType="map" resultType="int">
+    select count(*) from MATHDATA where boxNumber=#{chapCode} and mno=#{mno}
+  </select>
+  
   <select id="countAllByBoxNum" parameterType="int" resultType="int">
+    select count(*) from MATHDATA where boxNumber=#{value}
+  </select>
+  
+  <select id="countAllByExBoxNum" parameterType="int" resultType="int">
     select count(*) from MATHDATA where boxNumber=#{value}
   </select>
   
@@ -196,9 +361,17 @@
     select count(*) from MATHDATA where mathCode=#{value}
   </select>
   
+  <select id="checkExNumber" parameterType="string" resultType="int">
+    select count(*) from EXDATA where mathCode=#{value}
+  </select>
+  
   <!-- 해당 챕터 문제 개수 파악하기 -->
   <select id="getQuizCount" parameterType="string" resultType="int">
     select count(*) from MATHDATA where chapCode=#{value}
+  </select>
+  
+  <select id="getExQuizCount" parameterType="string" resultType="int">
+    select count(*) from EXDATA where chapCode=#{value}
   </select>
   
 </mapper>

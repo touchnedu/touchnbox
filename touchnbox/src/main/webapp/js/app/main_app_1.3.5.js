@@ -64,6 +64,15 @@ $(function() {
 		var checkData = $(this).children('img').attr('src').substr(7, 2);
 		if(checkData == "no") 
 			window.bookcase.notReadyContent();
+		else {
+			var checkStrSplitEx = $(this).children('img').attr('src').substr(23, 5).split('_');
+			checkData = "";
+			for(var i in checkStrSplitEx) {
+				checkData += checkStrSplitEx[i];
+			}
+			readyExContent(checkData, $(this).children('img').attr('src').substr(23, 5));
+			
+		}
 	});
 	
 	loadSheet();
@@ -87,10 +96,12 @@ function loadKakaoPage(grade) {
 	case 'e_6_2':
 		break;
 	case 'm_1_1':
+		location.href = 'http://page.kakao.com/home/49629839';
 		break;
 	case 'm_1_2':
 		break;
 	case 'm_2_1':
+		location.href = 'http://page.kakao.com/home/49629840';
 		break;
 	case 'm_2_2':
 		break;
@@ -169,7 +180,7 @@ function notReadyContent() {
 }
 
 function readyHintContent(hintName) {
-	var hint_src = "http://touchnbox.cafe24.com/chapter_hint_new/chapter_hint_";
+	var hint_src = "http://touchnbox.cafe24.com/chapter_hint_1_3_5/chapter_hint_";
 	var html_src = ".html";
 	location.href = hint_src + hintName + html_src;
 	
@@ -188,9 +199,24 @@ function readyContent(chapCode, htmlCode) {
 	case "h":
 		schoolCode = H_SCHOOL + chapCode.substr(1, 2);
 		break;
-	default:
-		break;
 	}
 	
-	location.href ="chapter_1_3_5/chapter_" + htmlCode + ".html?schoolCode=" + schoolCode; 
+	location.href = "chapter_1_3_5/chapter_" + htmlCode + ".html?schoolCode=" + schoolCode; 
+}
+
+function readyExContent(chapCode, htmlCode) {
+	var schoolCode = chapCode.substr(0, 1);
+	switch(schoolCode) {
+	case "e":
+		schoolCode = E_SCHOOL + chapCode.substr(1, 2);
+		break;
+	case "m":
+		schoolCode = M_SCHOOL + chapCode.substr(1, 2);
+		break;
+	case "h":
+		schoolCode = H_SCHOOL + chapCode.substr(1, 2);
+		break;
+	}
+		
+	location.href = "chapter_ex_1_3_5/chapter_ex_" + htmlCode + ".html?schoolCode=" + schoolCode;
 }

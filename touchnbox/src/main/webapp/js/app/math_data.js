@@ -3,23 +3,61 @@ var allQuizCode = "";
 var chapNumber = "";
 var quizNumber = "";
 var quizNumberBack = "00";
+var currentQuizState = 1;
 var androidVersion;
 $(document).ready(function() {
-	$('#prevQuiz').click(function() {
-		prevQuiz(quizNumberF);
-	});
-	
-	$('#nextQuiz').click(function() {
-		nextQuiz(chapNumber, quizNumberF);
-	});
-
+	$('#prevQuiz').click(function() { prevQuiz(quizNumberF); });
+	$('#nextQuiz').click(function() { nextQuiz(chapNumber, quizNumberF); });
 });	
 
-function setVersion(version) {
-	androidVersion = version * 1;
+function setVersion(version) { androidVersion = version * 1; }
+
+function loadExQuiz(quizCode) {
+	currentQuizState = 2;
+	chapNumber = quizCode.substr(0, 7);
+	quizNumber = quizCode.substr(7, 3);
+	
+	var interpolatedOffset = 0;
+	if(androidVersion < 21) {
+		interpolatedOffset = 2;
+	}
+	
+	$('#math-data-area').empty();
+	$.getJSON('/mathdata/loadex.do?no=' + quizCode, function(result) {
+		if(result.data != '' && result.data != null) {
+			$('#math-data-area').append(result.data);
+			$('img').css('width', '320px');
+			
+			$('input[id^=box]').each(function(i) {
+				$(this).offset({
+					top:($(this).attr('data-top') * 1) + interpolatedOffset,
+					left:($(this).attr('data-left') * 1) + interpolatedOffset
+				}).css('width', $(this).attr('data-width'))
+					.css('height', $(this).attr('data-height'));
+				
+				if(i == 0) {
+					$(this).addClass('active-box');
+				}
+				
+			});
+		} else {
+			$('#math-data-area').text("문제가 없습니다");
+		}
+		
+		if(result.isNext) {
+			isNext = true;
+		} else {
+			isNext = false;
+		}
+		window.android.setAnswer($('#box01').attr('data-answer'));
+		sendQuizPositionInfo($('#box01').attr('data-top'), $('#box01').attr('data-left'),
+												 $('#box01').width() + 12, $('#box01').height() + 12);
+	});
+	sendQuizInfo();
 }
 
 function loadQuiz(quizCode) {
+	currentQuizState = 1;
 	allQuizCode = quizCode;
 	chapNumber = quizCode.substr(0, 7);
 	quizNumber = quizCode.substr(7, 3);
@@ -74,9 +112,15 @@ function sendQuizPositionInfo(top, left, width, height) {
 }
 
 function isNextChapter(chapterCode) {
+	var ex = '';
+	if(currentQuizState == 1) 
+		ex = '../chapter_images/prv_';
+	else
+		ex = '../ex_chapter_images/prv_';
+		
 	var nextChapterNum = (chapterCode + 1) + "";
-	var codeSrc = "../chapter_images/prv_" + nextChapterNum.substr(0, 3) + "_" 
-																				 + nextChapterNum.substring(3) + ".png";
+	var codeSrc = ex + nextChapterNum.substr(0, 3) + "_" 
+																			 + nextChapterNum.substring(3) + ".png";
 	var fullCode = location.protocol + "//" 
 																	 + location.host + "/chapter_images/prv_"
 																	 + nextChapterNum.substr(0, 3) + "_" 
@@ -95,8 +139,12 @@ function isNextChapter(chapterCode) {
 
 /** 이전 문제 */
 function prevQuiz() {
+	console.log('currentQuizState : ' + currentQuizState);
 	if((quizNumber * 1) > 1) {
-		loadQuiz(chapNumber + calcNumber(quizNumber * 1 - 1) + quizNumberBack);
+		if(currentQuizState == 1)
+			loadQuiz(chapNumber + calcNumber(quizNumber * 1 - 1) + quizNumberBack);
+		else
+			loadExQuiz(chapNumber + calcNumber(quizNumber * 1 - 1) + quizNumberBack);
 	} else {
 		window.android.quizMessage("first");
 	}
@@ -104,8 +152,12 @@ function prevQuiz() {
 
 /** 다음 문제 */
 function nextQuiz() {
+	console.log('currentQuizState : ' + currentQuizState);
 	if(isNext) {
-		loadQuiz(chapNumber + calcNumber(quizNumber * 1 + 1) + quizNumberBack);
+		if(currentQuizState == 1)
+			loadQuiz(chapNumber + calcNumber(quizNumber * 1 + 1) + quizNumberBack);
+		else
+			loadExQuiz(chapNumber + calcNumber(quizNumber * 1 + 1) + quizNumberBack);
 	} else {
 		window.android.quizMessage("last");
 	}
@@ -201,7 +253,8 @@ function endQuiz() {
 /** 모범 답안 보기 */
 function viewSolution() {
 	var codeSrc = $('#math-data-area > img').attr('src').substr(0, 14) + "/sol/";
-	var code = $('#math-data-area > img').attr('src').substr(15, 15) + "_a.png";
+	var codeEx = $('#math-data-area > img').attr('src').substr(15, 2) == 'ex' ? 18 : 15;
+	var code = $('#math-data-area > img').attr('src').substr(15, codeEx) + "_a.png";
 
 	$.ajax({
 		url:codeSrc + code,

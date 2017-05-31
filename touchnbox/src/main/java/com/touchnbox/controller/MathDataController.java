@@ -32,6 +32,21 @@ public class MathDataController {
     return result;
   }
   
+  @RequestMapping("/insertex")
+  private Object insertEx(MathData mathData) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    
+    int count = mathDataService.insertEx(mathData);
+    
+    if(count > 0) {
+      result.put("data", "success");
+    } else {
+      result.put("data", "fail");
+    }
+    
+    return result;
+  }
+  
   @RequestMapping("/load")
   private Object load(String no) {
     Map<String, Object> result = new HashMap<String, Object>();
@@ -47,6 +62,25 @@ public class MathDataController {
     }
     
     result.put("data", mathDataService.load(no));
+    
+    return result;
+  }
+  
+  @RequestMapping("/loadex")
+  private Object loadEx(String no) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    
+    String chapCode = no.substring(0, 7);
+    int currentQuizNum = Integer.parseInt(no.substring(7, 10));
+    int quizCount = mathDataService.getExQuizCount(chapCode);
+    
+    if(currentQuizNum < quizCount) {
+      result.put("isNext", true);
+    } else {
+      result.put("isNext", false);
+    }
+    
+    result.put("data", mathDataService.exLoad(no));
     
     return result;
   }
@@ -77,10 +111,44 @@ public class MathDataController {
     return result;
   }
   
+  @RequestMapping("/exlist")
+  private Object exList(int no,
+      @RequestParam(required=false, defaultValue="1") int pageNo,
+      @RequestParam(required=false, defaultValue="15") int pageSize) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    
+    int totalCount = mathDataService.countAllEx(no);
+    int lastPageNo = totalCount / pageSize;
+    
+    if(totalCount % pageSize > 0) {
+      lastPageNo++;
+    }
+    if(pageNo < lastPageNo) {
+      result.put("isNextPage", true);
+    } else {
+      result.put("isNextPage", false);
+    }
+    
+    result.put("pageNo", pageNo);
+    result.put("pageSize", pageSize);
+    
+    result.put("data", mathDataService.exList(no, pageNo, pageSize));
+    
+    return result;
+  }
+  
   @RequestMapping("/detail")
   private Object detail(int no) {
     Map<String, Object> result = new HashMap<String, Object>();
     result.put("data", mathDataService.detail(no));
+    
+    return result;
+  }
+  
+  @RequestMapping("/exdetail")
+  private Object exDetail(int no) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    result.put("data", mathDataService.exDetail(no));
     
     return result;
   }
@@ -111,6 +179,32 @@ public class MathDataController {
     return result;
   }
   
+  @RequestMapping("/listByExChapter")
+  private Object listByExChapter(int mno, int chapCode,
+                @RequestParam(required=false, defaultValue="1") int pageNo,
+                @RequestParam(required=false, defaultValue="15") int pageSize) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    
+    int totalCount = mathDataService.countByExChapter(mno, chapCode);
+    int lastPageNo = totalCount / pageSize;
+    
+    if(totalCount % pageSize > 0) {
+      lastPageNo++;
+    }
+    if(pageNo < lastPageNo) {
+      result.put("isNextPage", true);
+    } else {
+      result.put("isNextPage", false);
+    }
+    
+    result.put("pageNo", pageNo);
+    result.put("pageSize", pageSize);
+    
+    result.put("data", mathDataService.listByExChapter(mno, chapCode, pageNo, pageSize));
+    
+    return result;
+  }
+  
   @RequestMapping("/listByQuizNumber")
   private Object listByQuizNumber(int mno, String mathCode,
                 @RequestParam(required=false, defaultValue="1") int pageNo,
@@ -133,6 +227,32 @@ public class MathDataController {
     result.put("pageSize", pageSize);
     
     result.put("data", mathDataService.listByQuizNum(mno, mathCode, pageNo, pageSize));
+    
+    return result;
+  }
+  
+  @RequestMapping("/listByExQuizNumber")
+  private Object listByExQuizNumber(int mno, String mathCode,
+      @RequestParam(required=false, defaultValue="1") int pageNo,
+      @RequestParam(required=false, defaultValue="15") int pageSize) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    
+    int totalCount = mathDataService.countByExQuizNum(mno, mathCode);
+    int lastPageNo = totalCount / pageSize;
+    
+    if(totalCount % pageSize > 0) {
+      lastPageNo++;
+    }
+    if(pageNo < lastPageNo) {
+      result.put("isNextPage", true);
+    } else {
+      result.put("isNextPage", false);
+    }
+    
+    result.put("pageNo", pageNo);
+    result.put("pageSize", pageSize);
+    
+    result.put("data", mathDataService.listByExQuizNum(mno, mathCode, pageNo, pageSize));
     
     return result;
   }
@@ -163,11 +283,52 @@ public class MathDataController {
     return result;
   }
   
+  @RequestMapping("/listByExBoxNumber")
+  private Object listByExBoxNumber(int mno, int boxNumber,
+                @RequestParam(required=false, defaultValue="1") int pageNo,
+                @RequestParam(required=false, defaultValue="15") int pageSize) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    
+    int totalCount = mathDataService.countByExBoxNum(mno, boxNumber);
+    int lastPageNo = totalCount / pageSize;
+    
+    if(totalCount % pageSize > 0) {
+      lastPageNo++;
+    }
+    if(pageNo < lastPageNo) {
+      result.put("isNextPage", true);
+    } else {
+      result.put("isNextPage", false);
+    }
+    
+    result.put("pageNo", pageNo);
+    result.put("pageSize", pageSize);
+    
+    result.put("data", mathDataService.listByExBoxNum(mno, boxNumber, pageNo, pageSize));
+    
+    return result;
+  }
+  
   @RequestMapping("/delete")
   private Object delete(@RequestParam(value="delArr[]") List<String> arrParams) {
     Map<String, Object> result = new HashMap<String, Object>();
     
     int count = mathDataService.delete(arrParams);
+    
+    if(count > 0) {
+      result.put("data", "success");
+    } else {
+      result.put("data", "fail");
+    }
+    
+    return result;
+  }
+  
+  @RequestMapping("/deleteex")
+  private Object deleteEx(@RequestParam(value="delArr[]") List<String> arrParams) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    
+    int count = mathDataService.deleteEx(arrParams);
     
     if(count > 0) {
       result.put("data", "success");
@@ -193,17 +354,35 @@ public class MathDataController {
     return result;
   }
   
+  @RequestMapping("/updateex")
+  private Object updateEx(MathData mathData) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    
+    int count = mathDataService.updateEx(mathData);
+    
+    if(count > 0) {
+      result.put("data", "success");
+    } else {
+      result.put("data", "fail");
+    }
+    
+    return result;
+  }
+  
   @RequestMapping("/checkQNumber")
   private Object checkQNumber(String no) {
     Map<String, Object> result = new HashMap<String, Object>();
-    
     int count = mathDataService.checkQuizNumber(no);
+    result.put("data", count > 0 ? "no" : "yes");
     
-    if(count > 0) {
-      result.put("data", "no");
-    } else {
-      result.put("data", "yes");
-    }
+    return result;
+  }
+  
+  @RequestMapping("/checkExNumber")
+  private Object checkExNumber(String no) {
+    Map<String, Object> result = new HashMap<String, Object>();
+    int count = mathDataService.checkExNumber(no);
+    result.put("data", count > 0 ? "no" : "yes");
     
     return result;
   }

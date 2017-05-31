@@ -8,9 +8,8 @@
 
 request.setCharacterEncoding("UTF-8");
 
-String account = request.getParameter("account");
-String productId = request.getParameter("productId");
-String orderId = request.getParameter("orderId");
+String id = request.getParameter("id");
+String os = request.getParameter("os");
 
 Connection con = null;
 Statement stmt = null;
@@ -22,17 +21,27 @@ try {
     throw new Exception("데이터베이스에 연결할 수 없습니다.");
   
   stmt = con.createStatement();
-  String query = String.format("insert into PURCHASEINFO(account, order_id, product_id, cre_dt) " +
-												       "values('%s', '%s', '%s', now());", 
-												       account, orderId, productId);
   
-  int rowNum = stmt.executeUpdate(query);
-  if(rowNum > 0) {
-    out.print("success");
-  } else {
-    out.print("fail");
-    throw new Exception("데이터를 DB에 입력할 수 없습니다.");
+  String selectQuery = String.format("select mno from MEMB where account='%s'", id);
+  String query = String.format("insert into MEMB(account, os, cre_dt) values('%s', '%s', now());", id, os);
+  
+  ResultSet rs = stmt.executeQuery(selectQuery);
+  int rowCount = 0;
+  if(rs.next())
+    rowCount = rs.getInt(1);
+  
+  if(rowCount > 0) { 
+    out.print("exist");
+  } else { 
+    int rowNum = stmt.executeUpdate(query);
+    if(rowNum > 0) {
+      out.print("success");
+    } else {
+      out.print("fail");
+      throw new Exception("데이터를 DB에 입력할 수 없습니다.");
+    }
   }
+  rs.close();
   
 } finally {
   try {

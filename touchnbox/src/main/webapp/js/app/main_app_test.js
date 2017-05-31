@@ -5,14 +5,10 @@ $(function() {
 		// transition: 'fade',
 		// useCSS: true,
 		// speed: 1000,
-		// pause: 130000,
+		// pause: 3000,
 		// auto: true,
 		// preload: 'visible',
 		// autoHover: false
-	});
-	
-	$('.sy-caption > a').click(function(e) {
-		console.log("클릭");
 	});
 	
 	$(".tab_content").hide();
@@ -54,9 +50,57 @@ $(function() {
 		}
 	});
 	
+	$('.kakao-data').click(function(event) {
+		event.preventDefault();
+		var checkData = $(this).children('img').attr('src').substr(7, 2);
+		if(checkData == "no") 
+			window.bookcase.notReadyContent();
+		else 
+			loadKakaoPage($(this).children('img').attr('src').substr(13, 5));
+	});
+	
+	$('.test-data').click(function(event) {
+		event.preventDefault();
+		var checkData = $(this).children('img').attr('src').substr(7, 2);
+		if(checkData == "no") 
+			window.bookcase.notReadyContent();
+	});
+	
 	loadSheet();
 	
 });
+
+function loadKakaoPage(grade) {
+	switch(grade) {
+	case 'e_4_1':
+		location.href = 'http://page.kakao.com/home/49629708';
+		break;
+	case 'e_4_2':
+		break;
+	case 'e_5_1':
+		location.href = 'http://page.kakao.com/home/49629799';
+		break;
+	case 'e_5_2':
+		break;
+	case 'e_6_1':
+		break;
+	case 'e_6_2':
+		break;
+	case 'm_1_1':
+		break;
+	case 'm_1_2':
+		break;
+	case 'm_2_1':
+		break;
+	case 'm_2_2':
+		break;
+	case 'm_3_1':
+		break;
+	case 'm_3_2':
+		break;
+	}
+	
+}
 
 function loadSheet() {
 	var dataId = "1KNZp0K56oZGtBxUlIXh_C2UT8USBuzmwqHWbTAL4LlY";
@@ -125,7 +169,7 @@ function notReadyContent() {
 }
 
 function readyHintContent(hintName) {
-	var hint_src = "http://touchnbox.cafe24.com/chapter_hint/chapter_hint_test_";
+	var hint_src = "http://touchnbox.cafe24.com/chapter_hint_1_3_5/chapter_hint_";
 	var html_src = ".html";
 	location.href = hint_src + hintName + html_src;
 	

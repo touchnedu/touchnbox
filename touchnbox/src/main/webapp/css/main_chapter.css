@@ -421,3 +421,10 @@ article:not(.middle-title):ACTIVE, .large-chapter:ACTIVE {
   display: inline-block;
   margin-top: -4px;
 }
+.free-list {
+	position: absolute;
+	width: 50px;
+	display: inline-block;
+	margin-top: -3px;
+	right: 45px;
+}

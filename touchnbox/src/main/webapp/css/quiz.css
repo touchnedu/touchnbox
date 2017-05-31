@@ -179,7 +179,7 @@ div[class^="box-type"] {
 	width: 30px;
 }
 .box-input > button, #save-content, #load-content, #load-img, #reset-content,
-#update-content, #load-wcontent {
+#update-content, #load-wcontent, #load-excontent {
   cursor: pointer;
   background-color: #09A798;
   border: none;

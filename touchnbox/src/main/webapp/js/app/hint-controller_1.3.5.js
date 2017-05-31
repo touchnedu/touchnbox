@@ -32,6 +32,7 @@ function setBasicHintChapter() {
 			return true;
 		}
 		$(this).addClass('basic');
+		$(this).append("<div class='free-chapter'><img src='../images/sub_icon.png'></div>");
 	});
 }
 var Premium = {

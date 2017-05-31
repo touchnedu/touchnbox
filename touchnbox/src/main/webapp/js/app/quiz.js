@@ -12,8 +12,9 @@ const ANSWERCODE = "<div id='answer-ring'><img src=''></div>\n";
 (function() {
 	/** 문제 이미지 불러오기 */
 	var loadImage = function(source) {
+		var ex = $('#is_ex').prop('checked') ? 'ex_' : '';
 		var contentImg = new Image();
-		contentImg.src = "../quiz_images/" + source + "_00.png";
+		contentImg.src = "../quiz_images/" + ex + source + "_00.png";
 		contentImg.onload = function() {
 			var imgTag = "<img id='content-src' src='" + contentImg.src + "'>";
 			$('#preview-quiz').empty();
@@ -91,7 +92,10 @@ const ANSWERCODE = "<div id='answer-ring'><img src=''></div>\n";
 	 * 정규식으로 모든 문자(또는 기호)를 치환할 수 있다. */
 	/** 저장하기 */
 	var saveContents = function() {
-		var genImgTag = "<img src='../quiz_images/" + $('#image-src').val() + 
+		var ex = $('#is_ex').prop('checked') ? 'ex_' : '';
+		
+		var saveUrl = $('#is_ex').prop('checked') ? '/mathdata/insertex.do' : '/mathdata/insert.do';
+		var genImgTag = "<img src='../quiz_images/" + ex + $('#image-src').val() + 
 										"_00.png' data-boxNum='" + totalBoxNumber + "'>\n"; // 이미지 주소
 		var mathCode = $('#image-src').val().replace(/_/gi, "") + "00"; // 문제 번호
 		var chapCode = mathCode.substr(0, 7); // 챕터 번호
@@ -112,7 +116,7 @@ const ANSWERCODE = "<div id='answer-ring'><img src=''></div>\n";
 											$boxNumber03Code + $boxNumber04Code + $boxNumber05Code +
 											$boxNumber06Code + $boxNumber07Code + ANSWERCODE;
 		
-		$.ajax('/mathdata/insert.do', 
+		$.ajax(saveUrl, 
 		{
 			method: 'POST',
 			dataType: 'json',
@@ -273,7 +277,11 @@ const ANSWERCODE = "<div id='answer-ring'><img src=''></div>\n";
 	
 	/** 문제 데이터 불러오기 */
 	$('#load-content').click(function() {
-		loadList();
+		loadList("load_list.html");
+	});
+	
+	$('#load-excontent').click(function() {
+		loadList("load_exlist.html");
 	});
 	
 	/** 오류 문제 데이터 불러오기 */
@@ -387,15 +395,14 @@ function init(memberNo, name) {
 }
 
 /* 불러오기 */
-function loadList() {
+function loadList(src) {
 	var topPosition = (screen.height - 580) / 2;
 	var leftPosition = (screen.width - 482) / 2;
-	var popupUrl = "load_list.html";
 	var popupOption = "width=482, height=580" +
 										", top=" + topPosition + ", left=" + leftPosition +
 										", resizable=no, scrollbars=yes, status=no;";
 	
-	window.open(popupUrl, "", popupOption);
+	window.open(src, "", popupOption);
 }
 
 
@@ -450,7 +457,8 @@ function openerController(no) {
 }
 
 function updateReady(number) {
-	var updateImgTag = "<img src='../quiz_images/" + $('#image-src').val() + 
+	var ex = $('#is_ex').prop('checked') ? 'ex_' : '';
+	var updateImgTag = "<img src='../quiz_images/" + ex + $('#image-src').val() + 
 										 ".png' data-boxNum='" + totalBoxNumber + "'>\n"; // 이미지 주소
 	
 	$('div[class^=text-boxnumber]').each(function(index) {
@@ -506,7 +514,8 @@ function updateReady(number) {
 
 /* update */
 function updateContents(boxNumber, content) {
-	$.ajax('/mathdata/update.do', 
+	var url = $('#is_ex').prop('checked') ? '/mathdata/updateex.do' : '/mathdata/update.do';
+	$.ajax(url, 
 	{
 		method: 'POST',
 		dataType: 'json',
@@ -524,6 +533,8 @@ function updateContents(boxNumber, content) {
 /* 콘텐츠 초기화 */
 function resetAllBox() {
 	arrowNumber = 0;
+	$('#is_ex').prop('disabled', false);
+	$('#is_ex').prop('checked', false);
 	$('div[class^=box-type]').animate({top:0, left:0}, 600, 'easeOutCubic');
 	$('.gen-box-w').val('');
 	$('.gen-box-h').val('');
@@ -543,9 +554,11 @@ function resetAllBox() {
 /* 문제 번호 유효성 검사 */
 function checkQNumber(source) {
 	var checkNum = source + "_00";
+	var checkUrl = $('#is_ex').prop('checked') ? '/mathdata/checkExNumber.do?no=' : '/mathdata/checkQNumber.do?no=';
 	checkNum = checkNum.replace(/_/gi, "");
+	console.log('url : ' + checkUrl + checkNum);
 	
-	$.getJSON('/mathdata/checkQNumber.do?no=' + checkNum, function(result) {
+	$.getJSON(checkUrl + checkNum, function(result) {
 		if(result.data == 'yes') {
 			$('#validate-code').text("입력 가능한 문제입니다.");
 			$('#validate-code').css('color', 'green');

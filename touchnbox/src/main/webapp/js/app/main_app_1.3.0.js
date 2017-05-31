@@ -87,10 +87,12 @@ function loadKakaoPage(grade) {
 	case 'e_6_2':
 		break;
 	case 'm_1_1':
+		location.href = 'http://page.kakao.com/home/49629839';
 		break;
 	case 'm_1_2':
 		break;
 	case 'm_2_1':
+		location.href = 'http://page.kakao.com/home/49629840';
 		break;
 	case 'm_2_2':
 		break;

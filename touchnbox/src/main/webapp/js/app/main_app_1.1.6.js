@@ -1,15 +1,7 @@
 const E_SCHOOL = "1", M_SCHOOL = "2", H_SCHOOL = "3";
 
 $(function() {
-	var demo1 = $("#top_banner").slippry({
-		// transition: 'fade',
-		// useCSS: true,
-		// speed: 1000,
-		// pause: 3000,
-		// auto: true,
-		// preload: 'visible',
-		// autoHover: false
-	});
+	var demo1 = $("#top_banner").slippry({});
 	
 	$(".tab_content").hide();
 	$(".tab_content:first").show();
@@ -66,6 +58,14 @@ $(function() {
 			window.bookcase.notReadyContent();
 	});
 	
+	$('.update-btn').bind('click', function() {
+		location.href = 'https://play.google.com/store/apps/details?id=com.touchnedu.gradea.studya.math&hl=ko';
+	});
+	
+	$('.ok-btn').bind('click', function() {
+		$('.open-plan').css('display', 'none');
+	});
+	
 	loadSheet();
 	
 });
@@ -87,10 +87,12 @@ function loadKakaoPage(grade) {
 	case 'e_6_2':
 		break;
 	case 'm_1_1':
+		location.href = 'http://page.kakao.com/home/49629839';
 		break;
 	case 'm_1_2':
 		break;
 	case 'm_2_1':
+		location.href = 'http://page.kakao.com/home/49629840';
 		break;
 	case 'm_2_2':
 		break;

@@ -8,30 +8,47 @@
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/slippry.css">
 <style>
-#open-plan {
+.open-plan {
   position: absolute;
   width: 80%;
   margin: 0 auto;
   left: 0;
   right: 0;
-  top: 280px;
+  top: 220px;
 }
-#open-plan-title {
+.open-plan-title {
   text-align: center;
-  background: #00998E;
+  background: #BC3800;
   color: #FFF;
   padding: 10px;
   font-size: 1.4em;
   font-weight: bold;
   letter-spacing: -0.05em;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 }
-#open-plan-content {
+.open-plan-content {
   padding: 20px 15px 20px 15px;
   background: rgba(255, 255, 255, 0.93);
   font-size: 1.2em;
   line-height: 1.5em;
-  letter-spacing: -0.12em;
+  letter-spacing: -0.1em;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 }
+.update-btn, .ok-btn {
+  display: inline-block;
+}
+.update-btn {
+  width: 165px;
+  color: #0066FF;
+  text-decoration: underline;
+  font-weight: bold;
+}
+.t-bold { font-weight: bold; }
+.ok-btn > img {
+  width: 80px;
+  vertical-align: middle;
+}
+
 </style>
 </head>
 <body>
@@ -56,7 +73,8 @@
         <li><div>
           <img src="images/banner_03.png">
           <div class="more">
-            <a class="bg-color-1" href="https://docs.google.com/forms/d/1m71m_KhTxjPTtDrQbGtA5-LxDc6faZR8s5c35PDPSIU/viewform?edit_requested=true">더 알아보기</a>
+            <a class="bg-color-1" href="https://docs.google.com/forms/d/1tWHt0Pjz-GRZxJDwgoDsqCNonjMSgwWuVlBZVETHOa8/edit">더
+                      알아보기</a>
           </div>
         </div></li>
         <li><div>
@@ -89,6 +107,28 @@
   </div>
   <div class="tab_container">
     <div id="tab1" class="tab_content">
+    <div class="open-plan">
+      <div class="open-plan-title">터치수학을 업데이트 해주세요.</div>
+      <div class="open-plan-content">
+        구독 서비스를 시작한 4월 18일부터 구독 사용자는 모든
+        콘텐츠를 제한 없이 이용 가능하고, 비 구독 사용자에게는
+        콘텐츠가 일부 제한되어 서비스 중입니다.<br><br>
+        업데이트가 되지 않은 일부 버전(1.2.4 이하 버전)
+        사용자들에게는 구독 기능이 없기 때문에 한시적으로
+        모든 콘텐츠 접근을 허용 중입니다.<br><br>
+        <span class='t-bold'>6월 18일부터 이전 버전(1.2.4 이하 버전)에서 콘텐츠 
+        접근이 제한됩니다. </span>
+        최신 버전으로 업데이트하여 터치수학의 최신 기능들을 경험하세요.<br><br>
+        <div class='notice-bottom'>
+          <div class='update-btn'>
+            최신 버전으로 업데이트
+          </div>
+          <div class='ok-btn'>
+            <img src='images/ok_btn.png'>
+          </div>
+        </div>
+      </div>
+    </div>
       <div id="e-grade-4" class="overflow-h-scroll">
         <div class="grade-large-text">4학년</div>
         <div class="grade-book">
@@ -246,6 +286,28 @@
   <!-- #tab1 -->
   
   <div id="tab2" class="tab_content">
+    <div class="open-plan">
+      <div class="open-plan-title">터치수학을 업데이트 해주세요.</div>
+      <div class="open-plan-content">
+        구독 서비스를 시작한 4월 18일부터 구독 사용자는 모든
+        콘텐츠를 제한 없이 이용 가능하고, 비 구독 사용자에게는
+        콘텐츠가 일부 제한되어 서비스 중입니다.<br><br>
+        업데이트가 되지 않은 일부 버전(1.2.4 이하 버전)
+        사용자들에게는 구독 기능이 없기 때문에 한시적으로
+        모든 콘텐츠 접근을 허용 중입니다.<br><br>
+        <span class='t-bold'>6월 18일부터 이전 버전(1.2.4 이하 버전)에서 콘텐츠 
+        접근이 제한됩니다. </span>
+        최신 버전으로 업데이트하여 터치수학의 최신 기능들을 경험하세요.<br><br>
+        <div class='notice-bottom'>
+          <div class='update-btn'>
+            최신 버전으로 업데이트
+          </div>
+          <div class='ok-btn'>
+            <img src='images/ok_btn.png'>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="m-grade-1" class="overflow-h-scroll">
       <div class="grade-large-text">1학년</div>
       <div class="grade-book">
@@ -254,7 +316,7 @@
         <div class="grade-text">1학년 1학기</div>
       </div>
       <div class="grade-book">
-        <a href="#" class="test-data"><img src="images/basic_book_m_1_2.png"></a>
+        <a href="#" class="book-data"><img src="images/basic_book_m_1_2.png"></a>
         <div class="basic">Basic</div>
         <div class="grade-text">1학년 2학기</div>
       </div>
@@ -327,7 +389,7 @@
       </div>
             
       <div class="kakao-book">
-        <a href="#" class="kakao-data"><img src="images/no_kakao_m_2_1.png"></a>
+        <a href="#" class="kakao-data"><img src="images/kakao_m_2_1.png"></a>
         <div class="kakao">e-Book</div>
         <div class="grade-text">2학년 1학기</div>
       </div>
@@ -403,14 +465,26 @@
   <!-- #tab2 -->
   
   <div id="tab3" class="tab_content">
-    <div id="open-plan">
-      <div id="open-plan-title">고등수학 콘텐츠 OPEN 일정</div>
-      <div id="open-plan-content">
-        2018 고1부터 2015 개정 교육과정이 적용됩니다.&nbsp;
-        수학 I, 수학 I I 로 나뉜 고1 과정이 [수학] 단일 교과서로
-        바뀌며 내용도 많은 변화가 있습니다.<br><br>
-        터치수학은 2018 고1 적용 수학 콘텐츠부터 제작중이며 현 중3 학생이
-        고등 수학 예습을 할 수 있도록 2017 여름방학 전에 오픈하도록 하겠습니다.
+    <div class="open-plan">
+      <div class="open-plan-title">터치수학을 업데이트 해주세요.</div>
+      <div class="open-plan-content">
+        구독 서비스를 시작한 4월 18일부터 구독 사용자는 모든
+        콘텐츠를 제한 없이 이용 가능하고, 비 구독 사용자에게는
+        콘텐츠가 일부 제한되어 서비스 중입니다.<br><br>
+        업데이트가 되지 않은 일부 버전(1.2.4 이하 버전)
+        사용자들에게는 구독 기능이 없기 때문에 한시적으로
+        모든 콘텐츠 접근을 허용 중입니다.<br><br>
+        <span class='t-bold'>6월 18일부터 이전 버전(1.2.4 이하 버전)에서 콘텐츠 
+        접근이 제한됩니다. </span>
+        최신 버전으로 업데이트하여 터치수학의 최신 기능들을 경험하세요.<br><br>
+        <div class='notice-bottom'>
+          <div class='update-btn'>
+            최신 버전으로 업데이트
+          </div>
+          <div class='ok-btn'>
+            <img src='images/ok_btn.png'>
+          </div>
+        </div>
       </div>
     </div>
     <div id="h-grade-1" class="overflow-h-scroll">
