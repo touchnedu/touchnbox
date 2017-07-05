@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.touchnbox.dao.DeviceDao">
+  <resultMap type="Device"    id="DeviceMap">
+    <id     column="dno"      property="no" />
+    <result column="cre_dt"   property="createDate" />
+  </resultMap>
+  
+  <select id="existDevice" parameterType="string" resultMap="DeviceMap">
+    SELECT id, name, number FROM DEVICEINFO WHERE id=#{value}
+  </select>
+  
+  <insert id="insertDevice" parameterType="Device">
+    insert into 
+    DEVICEINFO(id, name, number, cre_dt)
+    values(#{id}, #{name}, #{number}, now())
+  </insert>
+  
+  <update id="updateDevice" parameterType="Device">
+    update DEVICEINFO set
+      name=#{name}, number=#{number}, cre_dt=now()
+    where id=#{id} 
+  </update>
+  
+  <delete id="deleteDevice" parameterType="string">
+    delete from DEVICEINFO where id=#{value}  
+  </delete>
+  
+</mapper>

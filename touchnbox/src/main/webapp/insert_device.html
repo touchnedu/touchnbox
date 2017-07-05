@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>기기 등록 페이지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { margin: 0; padding: 0; background-color: #00C5B3; }
+#container { margin: 0 auto; padding: 5px; width: 80%; color: white; border: 1px solid #FFF; margin-top: 30%; }
+#container > div { padding: 7px 10px; }
+#container input { width: 100px; padding: 5px; border: 1px solid #09A798; outline-color: #00998e; }
+#saveBtn { margin: 0 auto; padding: 7px 10px; border: 0px; background-color: #00998e; border-radius: 3px; outline: 0; font-weight: bold; color: #FFF; font-size: 0.9em; }
+#container-btn { margin: 0 auto; width: 50%; text-align: center; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div id='container'>
+  <div>DEVICE ID : <span id='divce_id'></span></div>
+  <div>학원 이름 : <input id='name' type='text'></div>
+  <div>지역 정보 : <input id='addr' type='text'></div>
+  <div>기기 번호 : <input id='number' type='text'></div>
+  <div>비밀번호 : &nbsp;<input id='password' type='password'></div>
+</div>
+<div id='container-btn'>
+  <button id='saveBtn'>등록하기</button>
+</div>
+
+<script type="text/javascript" src="js/lib/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/app/device_info.js"></script>
+
+</body>
+</html>
