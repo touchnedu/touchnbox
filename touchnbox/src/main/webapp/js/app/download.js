@@ -9,8 +9,11 @@
 	var checkValue = function(value) {
 		if(value == "2016") {
 			location.href="http://touchnedu.cafe24.com/touchnmath.apk";
+		} else if(value == "2017") {
+			location.href="http://touchnedu.cafe24.com/touchnmath_coach.apk";
 		} else {
 			alert("암호가 올바르지 않습니다.");
+			
 		}
 	};
 	

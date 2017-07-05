@@ -41,7 +41,7 @@ function loadExQuiz(quizCode) {
 				
 			});
 		} else {
-			$('#math-data-area').text("문제가 없습니다");
+			$('#math-data-area').html("<p>[계산연습] 교재에는 본 챕터의 문제가 없습니다.</p>" + "<p>다음 챕터로 넘어가 주십시오.</p>");
 		}
 		
 		if(result.isNext) {
@@ -112,19 +112,22 @@ function sendQuizPositionInfo(top, left, width, height) {
 }
 
 function isNextChapter(chapterCode) {
+	console.log('currentQuizState : ' + currentQuizState);
 	var ex = '';
 	if(currentQuizState == 1) 
 		ex = '../chapter_images/prv_';
 	else
-		ex = '../ex_chapter_images/prv_';
+		ex = '../chapter_images/prv_';
+	
 		
 	var nextChapterNum = (chapterCode + 1) + "";
 	var codeSrc = ex + nextChapterNum.substr(0, 3) + "_" 
 																			 + nextChapterNum.substring(3) + ".png";
 	var fullCode = location.protocol + "//" 
-																	 + location.host + "/chapter_images/prv_"
+																	 + location.host + ex.substring(2)
 																	 + nextChapterNum.substr(0, 3) + "_" 
 																	 + nextChapterNum.substring(3) + ".png";
+	console.log('codeSrc : ' + codeSrc);
 	$.ajax({
 		url:codeSrc,
 		type:'HEAD',
@@ -139,7 +142,6 @@ function isNextChapter(chapterCode) {
 
 /** 이전 문제 */
 function prevQuiz() {
-	console.log('currentQuizState : ' + currentQuizState);
 	if((quizNumber * 1) > 1) {
 		if(currentQuizState == 1)
 			loadQuiz(chapNumber + calcNumber(quizNumber * 1 - 1) + quizNumberBack);
@@ -152,7 +154,6 @@ function prevQuiz() {
 
 /** 다음 문제 */
 function nextQuiz() {
-	console.log('currentQuizState : ' + currentQuizState);
 	if(isNext) {
 		if(currentQuizState == 1)
 			loadQuiz(chapNumber + calcNumber(quizNumber * 1 + 1) + quizNumberBack);

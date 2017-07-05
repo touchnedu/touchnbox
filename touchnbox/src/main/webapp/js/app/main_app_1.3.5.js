@@ -62,6 +62,7 @@ $(function() {
 	$('.test-data').click(function(event) {
 		event.preventDefault();
 		var checkData = $(this).children('img').attr('src').substr(7, 2);
+		var title = $('.active').text() + " " + $(this).parent().find('.grade-text').text();
 		if(checkData == "no") 
 			window.bookcase.notReadyContent();
 		else {
@@ -71,7 +72,7 @@ $(function() {
 				checkData += checkStrSplitEx[i];
 			}
 			readyExContent(checkData, $(this).children('img').attr('src').substr(23, 5));
-			
+			window.bookcase.setChapterTitle(title);
 		}
 	});
 	
@@ -92,6 +93,7 @@ function loadKakaoPage(grade) {
 	case 'e_5_2':
 		break;
 	case 'e_6_1':
+		location.href = 'http://page.kakao.com/link/49629838';
 		break;
 	case 'e_6_2':
 		break;
@@ -106,6 +108,7 @@ function loadKakaoPage(grade) {
 	case 'm_2_2':
 		break;
 	case 'm_3_1':
+		location.href = 'http://page.kakao.com/home/49629841';
 		break;
 	case 'm_3_2':
 		break;

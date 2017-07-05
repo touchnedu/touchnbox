@@ -8,7 +8,6 @@ $(function() {
 
 	$("ul.tabs li").click(function() {
 		$("ul.tabs li").removeClass("active");
-		//$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
 		$(this).addClass("active");
 		$(".tab_content").hide()
 		var activeTab = $(this).attr("rel");
@@ -17,45 +16,22 @@ $(function() {
 	
 	$('.book-data').click(function(event) {
 		event.preventDefault();
-		var checkStr = $(this).children('img').attr('src').substr(7, 2);
-		var title = $('.active').text() + " " + $(this).parent().find('.grade-text').text();
-		if(checkStr == "no") {
-			window.bookcase.notReadyContent();
-		} else {
-			var checkStrSplit = $(this).children('img').attr('src').substr(18, 5).split('_');
-			checkStr = "";
-			for(var i in checkStrSplit) {
-				checkStr += checkStrSplit[i];
-			}
-			readyContent(checkStr, $(this).children('img').attr('src').substr(18, 5));
-			window.bookcase.setChapterTitle(title);
-		}
+		alert('업데이트가 필요합니다.');
 	});
 	
 	$('.hint-data').click(function(event) {
 		event.preventDefault();
-		if($(this).attr('data-ready') == "ok") {
-			readyHintContent($(this).children('img').attr('src').substr(20, 3));
-			window.bookcase.setChapterTitle($(this).attr("data-title"));
-		} else {
-			window.bookcase.notReadyContent();
-		}
+		alert('업데이트가 필요합니다.');
 	});
 	
 	$('.kakao-data').click(function(event) {
 		event.preventDefault();
-		var checkData = $(this).children('img').attr('src').substr(7, 2);
-		if(checkData == "no") 
-			window.bookcase.notReadyContent();
-		else 
-			loadKakaoPage($(this).children('img').attr('src').substr(13, 5));
+		alert('업데이트가 필요합니다.');
 	});
 	
 	$('.test-data').click(function(event) {
 		event.preventDefault();
-		var checkData = $(this).children('img').attr('src').substr(7, 2);
-		if(checkData == "no") 
-			window.bookcase.notReadyContent();
+		alert('업데이트가 필요합니다.');
 	});
 	
 	$('.update-btn').bind('click', function() {
@@ -69,40 +45,6 @@ $(function() {
 	loadSheet();
 	
 });
-
-function loadKakaoPage(grade) {
-	switch(grade) {
-	case 'e_4_1':
-		location.href = 'http://page.kakao.com/home/49629708';
-		break;
-	case 'e_4_2':
-		break;
-	case 'e_5_1':
-		location.href = 'http://page.kakao.com/home/49629799';
-		break;
-	case 'e_5_2':
-		break;
-	case 'e_6_1':
-		break;
-	case 'e_6_2':
-		break;
-	case 'm_1_1':
-		location.href = 'http://page.kakao.com/home/49629839';
-		break;
-	case 'm_1_2':
-		break;
-	case 'm_2_1':
-		location.href = 'http://page.kakao.com/home/49629840';
-		break;
-	case 'm_2_2':
-		break;
-	case 'm_3_1':
-		break;
-	case 'm_3_2':
-		break;
-	}
-	
-}
 
 function loadSheet() {
 	var dataId = "1KNZp0K56oZGtBxUlIXh_C2UT8USBuzmwqHWbTAL4LlY";
@@ -164,35 +106,4 @@ function calculateNumber(number) {
 	} else {
 		return "000000" + number;
 	}
-}
-
-function notReadyContent() {
-	alert("준비중입니다.");
-}
-
-function readyHintContent(hintName) {
-	var hint_src = "http://touchnbox.cafe24.com/chapter_hint/chapter_hint_";
-	var html_src = ".html";
-	location.href = hint_src + hintName + html_src;
-	
-}
-
-function readyContent(chapCode, htmlCode) {
-	var schoolCode = chapCode.substr(0, 1);
-	
-	switch(schoolCode) {
-	case "e":
-		schoolCode = E_SCHOOL + chapCode.substr(1, 2);
-		break;
-	case "m":
-		schoolCode = M_SCHOOL + chapCode.substr(1, 2);
-		break;
-	case "h":
-		schoolCode = H_SCHOOL + chapCode.substr(1, 2);
-		break;
-	default:
-		break;
-	}
-	
-	location.href ="chapter/chapter_" + htmlCode + ".html?schoolCode=" + schoolCode; 
 }

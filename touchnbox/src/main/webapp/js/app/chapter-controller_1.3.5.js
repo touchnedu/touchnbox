@@ -56,7 +56,7 @@ function setBasicChapter() {
 			
 		} else {
 			// 중단원이 없을 경우(초등)
-			if(chapNo.substr(0, 1) === '1' || chapNo.substr(0, 1) === '5') {
+			if(chapNo.substr(0, 1) === '1' || chapNo.substr(0, 1) === '4' || chapNo.substr(0, 1) === '6') {
 				$(this).append("<div class='free-chapter'><img src='../images/free_icon.png'></div>");
 				return true;
 			}
